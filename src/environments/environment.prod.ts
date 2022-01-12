@@ -4,7 +4,7 @@ export const environment = {
   urlWeb: '#',
   configUrlAbi: "/assets/abi/DevToken.json",
   contractAddress: "#",
-  infuraId: "#",
+  infuraId: "##",
   chain: {
     chainId: "137",
     chainName: "Polygon Mainnet",

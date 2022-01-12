@@ -119,8 +119,8 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.environment.prod.ts
-.env.development.local
+/environments/environment.prod.ts
+/environments/env.development.local
 .env.test.local
 .env.production.local
 .env.local
