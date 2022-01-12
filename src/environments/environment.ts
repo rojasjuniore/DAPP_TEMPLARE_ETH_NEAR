@@ -7,7 +7,7 @@ export const environment = {
   API_URL: '#',
   urlWeb: '#',
   configUrlAbi: "/assets/abi/DevToken.json",
-  contractAddress: "#",
+  contractAddress: "####",
   infuraId: "#",
   chain: {
     chainId: "137",
