@@ -25,16 +25,10 @@ export class HomeComponent implements OnInit {
     this.contractService.connectAccount();
   }
 
-  atracionesDisponibles() {
-    this.contractService.atracionesDisponibles();
+  logout() {
+    console.log("logout")
+    this.contractService.logout();
   }
 
-  nuevaAtraccion() {
-    this.contractService.nuevaAtraccion();
-  }
-
-  disconnect() {
-    this.contractService.disconnectAccount();
-  }
 
 }

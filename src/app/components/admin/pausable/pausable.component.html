@@ -1,0 +1,21 @@
+<ng-container >
+    <label for="basic-url" class="form-label">
+        Pause: llamado por el propietario para pausar, desencadena el estado detenido
+    </label>
+    <div class="d-grid gap-2">
+        <button (click)="pause()" class="btn btn-primary" type="button">
+            {{'pause' | titlecase}}
+        </button>
+    </div>
+</ng-container>
+<div class="pt-3"></div>
+<ng-container >
+    <label for="basic-url" class="form-label">
+        Unpause: llamado por el propietario para anular la pausa, vuelve al estado normal
+    </label>
+    <div class="d-grid gap-2">
+        <button (click)="Unpause()" class="btn btn-primary" type="button">
+            {{'Unpause' | titlecase}}
+        </button>
+    </div>
+</ng-container>

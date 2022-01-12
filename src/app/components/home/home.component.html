@@ -1,9 +1,4 @@
 <div class="d-grid gap-2">
     <button (click)="connectAccount()" class="btn btn-primary" type="button">connect account</button>
-    <button (click)="disconnect()" class="btn btn-primary" type="button">disconnect</button>
-
-    <pre *ngIf="accountStatus">{{accountStatus|json}}</pre>
-    <button (click)="atracionesDisponibles()" class="btn btn-primary" type="button">atraciones disponibles</button>
-    <pre>{{contractService._atracionesDisponibles}}</pre>
-    <button (click)="nuevaAtraccion()" class="btn btn-primary" type="button">nueva atraccion</button>
+    <button (click)="logout()" class="btn btn-primary" type="button">disconnect</button>
 </div>

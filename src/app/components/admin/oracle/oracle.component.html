@@ -1,0 +1,28 @@
+<label for="basic-url" class="form-label">
+    Los proveedores de datos independientes aprovechan la red Chainlink para hacer que sus datos sean accesibles en
+    cadena directamente a través de sus propios nodos Chainlink.
+
+    <br>
+    Proxy Actual: {{data.proxyDataFeeds}}
+    <br>
+    Price for Matic : {{data?.maticUsd | currency:'USD':true}}
+
+</label>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+        <label class="form-label">{{'account' | titlecase}} </label>
+        <input type="text" formControlName="account" class="form-control" placeholder="account">
+    </div>
+    <div *ngIf="submitted && f.account.errors" class="invalid-feedback">
+        <div *ngIf="f.account.errors.required" class="ion-text-center red">
+            <p>
+                {{'is required' | titlecase }}
+            </p>
+        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <button (click)="submit()" class="btn btn-primary" type="button">
+            {{'cambiar proveedor' | titlecase}}
+        </button>
+    </div>
+</form>

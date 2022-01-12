@@ -1,0 +1,33 @@
+<label for="basic-url" class="form-label">
+    Allowance: la asignación se utiliza ver cuánta asignación tiene un gastador
+</label>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+        <label class="form-label">{{'addressOwner' | titlecase}} </label>
+        <input type="text" formControlName="addressOwner" class="form-control" placeholder="addressOwner">
+    </div>
+    <div *ngIf="submitted && f.addressOwner.errors" class="invalid-feedback">
+        <div *ngIf="f.addressOwner.errors.required" class="ion-text-center red">
+            <p>
+                {{'is required' | titlecase }}
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">{{'addressSpender' | titlecase}} </label>
+        <input type="text" formControlName="addressSpender" class="form-control" placeholder="addressSpender">
+    </div>
+    <div *ngIf="submitted && f.addressSpender.errors" class="invalid-feedback">
+        <div *ngIf="f.addressSpender.errors.required" class="ion-text-center red">
+            <p>
+                {{'is required' | titlecase }}
+            </p>
+        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <button (click)="submit()" class="btn btn-primary" type="button">
+            {{'allowance' | titlecase}}
+        </button>
+    </div>
+</form>

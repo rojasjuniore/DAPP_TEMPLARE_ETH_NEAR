@@ -1,0 +1,12 @@
+<label for="basic-url" class="form-label">
+    Retirar matic acumulados en el contrato <br>
+    balance actual en matic {{balanceOfContractEther}}
+    <br>
+</label>
+<form>
+    <div class="d-grid gap-2">
+        <button (click)="submit()" class="btn btn-primary" type="button">
+            {{'retirar' | titlecase}}
+        </button>
+    </div>
+</form>

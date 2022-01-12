@@ -1,6 +1,5 @@
 // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#id50
 // https://web3js.readthedocs.io/en/v1.4.0/glossary.html
-
 export const token_address = '0x11a1f9A14c5f78dE142aD088622622014C05497c';
 export const token_abi = [
     {
