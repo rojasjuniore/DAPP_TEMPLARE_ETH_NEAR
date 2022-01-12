@@ -1,9 +1,9 @@
 export const environment = {
-  production: true,
+  production: false,
   API_URL: '#',
   urlWeb: '#',
   configUrlAbi: "/assets/abi/DevToken.json",
-  contractAddress: "0x3dD5f701A28E035b585e3AFF6501AbadaDA1e29e",
+  contractAddress: "#",
   infuraId: "#",
   chain: {
     chainId: "137",
@@ -20,7 +20,7 @@ export const environment = {
     url_payu: "https://checkout.payulatam.com/ppp-web-gateway-payu/",
     accountId: "#",
     merchantId: "#",
-    referenceCode: `${Math.round(Math.random() * 9000000)}`,
+    referenceCode: `#${Math.round(Math.random() * 9000000)}`,
     test: "0",
     API_KEY: "#",
     API_LOGIN: "#",

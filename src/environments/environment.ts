@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  API_URL: 'https://mind-api.uc.r.appspot.com',
-  urlWeb: 'https://mplus.mindworld.io/',
+  API_URL: '#',
+  urlWeb: '#',
   configUrlAbi: "/assets/abi/DevToken.json",
-  contractAddress: "0x3dD5f701A28E035b585e3AFF6501AbadaDA1e29e",
-  infuraId: "629c02c877174fcfb764daa34d3b0dbb",
+  contractAddress: "#",
+  infuraId: "#",
   chain: {
     chainId: "137",
     chainName: "Polygon Mainnet",
@@ -22,13 +22,13 @@ export const environment = {
   },
   payu: {
     url_payu: "https://checkout.payulatam.com/ppp-web-gateway-payu/",
-    accountId: "966778",
-    merchantId: "959064",
-    referenceCode: `MIND${Math.round(Math.random() * 9000000)}`,
+    accountId: "#",
+    merchantId: "#",
+    referenceCode: `#${Math.round(Math.random() * 9000000)}`,
     test: "0",
-    API_KEY: "nmhB33UHrDj4KMT853Z5JXBFw0",
-    API_LOGIN: "s1PMg344Jp5BjR7",
-    KEY_PUBLIC: "PKmseJn6HV0q4fx09A35Q1gzyC",
+    API_KEY: "#",
+    API_LOGIN: "#",
+    KEY_PUBLIC: "#",
   }
 };
 
