@@ -9,6 +9,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AddTokenAMetamaskService } from './add-metamask.service';
 import { HttpClient } from '@angular/common/http';
 
+/**
+ * TODO: Revisar tipado de llamados en promesas
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +122,55 @@ export class ContractService {
     })
   }
 
+  async getUserData(){
+    const accounts = this.accounts[0];
+    const contractAddress = environment.contractAddress;
+
+    const [
+      myEther = 0,
+      myContractEther,
+      balanceOfContract = 0,
+      balanceOf = 0,
+      getPreSaleCommission,
+      getOwner,
+      tokenPerEth,
+      allowance,
+      pause,
+      maticUsd = 0,
+      proxyDataFeeds,
+    ] = await Promise.all([
+      this.getBalanceEth(accounts),
+      this.getBalanceEth(contractAddress),
+      this._method("balanceOf", 'methods', contractAddress),
+      this._method("balanceOf", 'methods', accounts),
+      this._method("getPreSaleCommission", 'methods'),
+      this._method("getOwner", 'methods'),
+      this._method("getTokenPerEth", 'methods'),
+      this._method("allowance", 'methods', accounts),
+      this._method("allowance", 'methods', accounts),
+      this.getEthUsd(),
+      this._method("proxyDataFeeds", 'methods'),
+    ]);
+
+    return {
+      accounts,
+      contractAddress,
+      myEther,
+      myContractEther,
+      balanceOfContract,
+      balanceOf,
+      getPreSaleCommission,
+      getOwner,
+      tokenPerEth,
+      allowance,
+      pause,
+      maticUsd,
+      proxyDataFeeds,
+      priceToken: (Number(maticUsd) / Number(tokenPerEth)).toFixed(5),
+      red: 'MATIC',
+    };
+  }
+
 
   async getData() {
     return new Promise(async (resolve, reject) => {
@@ -131,13 +183,17 @@ export class ContractService {
         // console.log("getData")
         let data: any = {}
 
-        data.contractAddress = environment.contractAddress;
-        data.myContractEther = await this.getBalanceEth(environment.contractAddress);
+        // data.contractAddress = environment.contractAddress;
+        // data.myContractEther = await this.getBalanceEth(environment.contractAddress);
         // console.log(" data.myContractEther", data.myContractEther)
-        data.myEther = await this.getBalanceEth(this.accounts[0]);
+
+        const userData = await this.getUserData();
+        data = Object.assign({}, data, userData);
+
+        // data.myEther = await this.getBalanceEth(this.accounts[0]);
         // console.log("data.myEther", data.myEther)
 
-        data.balanceOfContract = await this._method("balanceOf", 'methods', data.contractAddress);
+        // data.balanceOfContract = await this._method("balanceOf", 'methods', data.contractAddress);
         // console.log("data.balanceOfContract", data.balanceOfContract)
 
         let infoToken = await this._method("getInfoToken", 'methods')
@@ -148,20 +204,20 @@ export class ContractService {
           data.symbol = infoToken._symbol
           data.name = infoToken._name
         }
-        data.balanceOf = await this._method("balanceOf", 'methods', this.accounts[0]);
-        data.accounts = this.accounts[0]
+        // data.balanceOf = await this._method("balanceOf", 'methods', this.accounts[0]);
+        // data.accounts = this.accounts[0]
 
-        data.getPreSaleCommission = await this._method("getPreSaleCommission", 'methods')
-        data.getOwner = await this._method("getOwner", 'methods')
-        data.tokenPerEth = await this._method("getTokenPerEth", 'methods')
-        data.allowance = await this._method("allowance", 'methods', this.accounts[0])
-        data.pause = await this._method("allowance", 'methods', this.accounts[0])
+        // data.getPreSaleCommission = await this._method("getPreSaleCommission", 'methods')
+        // data.getOwner = await this._method("getOwner", 'methods')
+        // data.tokenPerEth = await this._method("getTokenPerEth", 'methods')
+        // data.allowance = await this._method("allowance", 'methods', this.accounts[0])
+        // data.pause = await this._method("allowance", 'methods', this.accounts[0])
 
-        data.maticUsd = await this.getEthUsd()
+        // data.maticUsd = await this.getEthUsd()
 
-        data.proxyDataFeeds = await this._method("proxyDataFeeds", 'methods')
-        data.priceToken = (data.maticUsd / data.tokenPerEth).toFixed(5)
-        data.red = 'MATIC'
+        // data.proxyDataFeeds = await this._method("proxyDataFeeds", 'methods')
+        // data.priceToken = (data.maticUsd / data.tokenPerEth).toFixed(5)
+        // data.red = 'MATIC'
 
         if (data) {
           localStorage.setItem('_data_contract', JSON.stringify(data) || "")
