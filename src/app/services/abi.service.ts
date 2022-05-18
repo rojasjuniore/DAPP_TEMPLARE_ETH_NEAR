@@ -9,12 +9,35 @@ export class AbiService {
 
   constructor(private http: HttpClient) { }
 
-  // getABI loads the ABI of the contract
-  // This is an async function so we can wait for it to finish executing
+
+  /**
+   * Obtener ABI por defecto
+   * @returns 
+   */
   getABI() {
     return new Promise((resolve, reject) => {
       try {
         this.http.get<any>(environment.configUrlAbi)
+          .subscribe((res: any) => {
+            resolve(res.abi);
+          })
+      } catch (error) {
+        alert(JSON.stringify(error))
+        reject(error)
+      }
+    })
+  }
+
+
+  /**
+   * Obtener ABI a través de una ruta
+   * @param urlAbi            Path del ABI
+   * @returns 
+   */
+  getABIByUrl(urlAbi: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        this.http.get<any>(urlAbi)
           .subscribe((res: any) => {
             resolve(res.abi);
           })
