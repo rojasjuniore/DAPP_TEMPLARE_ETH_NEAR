@@ -34,13 +34,15 @@ export class ContractService {
   public setAccountStakes = new Subject<any>();
   accountStakes$ = this.setAccountStakes.asObservable();
 
-
+  public timeLockedWalletABI = '/assets/abi/erc20.TimeLockedWallet.json';
+  public erc20ABI = '/assets/abi/erc20.json';
 
   constructor(
     private spinner: NgxSpinnerService,
     private _http: HttpClient,
     public metamaskService: AddTokenAMetamaskService,
-    public abiService: AbiService) {
+    public abiService: AbiService
+  ) {
 
     const providerOptions = {
       walletconnect: {
@@ -532,6 +534,115 @@ export class ContractService {
     this.accountStatusSource.next(null)
     this.dataStatusSource.next(null)
     window.location.reload()
+  }
+
+
+  /** ===============================================================
+   *               Méthodo genérico para llamadas al SC
+   * ================================================================
+   * @param method 
+   * @param params 
+   * @param callType        'call' and 'send' 
+   */
+  async calculateAndCall(method: any, params?: any, callType = 'send', optionals: any = {}) {
+    try {
+
+      const contractMethod = (!params)
+        ? this.uToken.methods[method]()
+        : this.uToken.methods[method](...params)
+
+      if(callType === 'send'){
+
+        const [ account ] = this.accounts;
+
+        const gasFee = await contractMethod.estimateGas( optionals );
+        console.log("gas", gasFee);
+
+        optionals.gas = gasFee;
+        optionals.from = account;
+      }
+
+      const result = await contractMethod[callType]( optionals );
+      console.log("result", result);
+
+      // this.sweetAlertSrv.showSuccess('Transacción exitosa');
+
+      if (callType === 'send') { this.reInitializating(); }
+
+      return result;
+
+    } catch (err: any) {
+      // this.sweetAlertSrv.showError('Transacción fallida');
+      console.log('Error on ContractService@calculateAndCall', err);
+      throw new Error(err);
+    }
+  }
+
+  /** ===============================================================
+   *       Méthodo genérico para llamadas al SC personalizado
+   * ================================================================
+   * @param data 
+   * @param data.contractAddress 
+   * @param data.method 
+   * @param data.params 
+   * @param data.callType           'call' / 'send'
+   * @param data.optionals 
+   * @param data.urlABI 
+   */
+  async calculateAndCallCustomABI(data: any) {
+    const {
+      contractAddress,
+      method,
+      params = null,
+      callType = 'send',
+      optionals = {},
+      urlABI = this.erc20ABI
+    } = data;
+
+    try {
+
+      // Cargar ABI del contrato
+      const contractABI: any = await this.abiService.getABIByUrl(urlABI);
+
+      // cargamos la abi de contracto secundarios con el metodo que necesitamos
+      const uToken = this.getAbiContract([contractABI[method]], contractAddress);
+
+      const contractMethod = (!params)
+        ? uToken.methods[method]()
+        : uToken.methods[method](...params);
+
+      if(callType === 'send'){
+
+        const [ account ] = this.accounts;
+
+        const gasFee = await contractMethod.estimateGas( optionals );
+        console.log("gas", gasFee);
+
+        optionals.gas = gasFee;
+        optionals.from = account;
+      }
+
+      const result = await contractMethod[callType]( optionals );
+      console.log("result", result);
+
+      return result;
+
+    } catch (err: any) {
+      console.log('Error on ContractService@calculateAndCallCustomABI', err);
+      throw new Error(err);
+    }
+  }
+
+
+  /**
+   * Obteber nueva instancia WEB3 de un SC a través del ABI ingresado
+   * @param token_abi             ABI Cargado
+   * @param token_address         Dirección del SC
+   * @returns 
+   */
+  getAbiContract(token_abi, token_address) {
+    let uToken: any = new this.web3js.eth.Contract(token_abi, token_address);
+    return uToken;
   }
 
 }
