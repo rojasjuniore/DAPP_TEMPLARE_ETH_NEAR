@@ -12,9 +12,6 @@ import { fromWei, toWei } from '../helpers/utils';
 import { approve as APPROVE } from '../helpers/abi';
 import { Sweetalert2Service } from './sweetalert2.service';
 
-/**
- * TODO: Revisar tipado de llamados en promesas
- */
 
 @Injectable({
   providedIn: 'root'
@@ -88,7 +85,9 @@ export class ContractService {
 
 
 
-
+  /**
+   * Conectar Wallet
+   */
   async connectAccount() {
     this._web3Modal.clearCachedProvider();
 
@@ -101,9 +100,12 @@ export class ContractService {
     this.eventsAll()
 
     this.reInitializating()
-
   }
 
+
+  /**
+   * Reconectar y actualizar estado de la wallet
+   */
   async reInitializating() {
 
     /** spinner starts on init */
@@ -126,6 +128,10 @@ export class ContractService {
     await this.getData()
   }
 
+
+  /**
+   * Validar estado de la red
+   */
   checkNetwork() {
     this.web3js.eth.net.getId().then(id => {
       // console.log("id", id)
@@ -137,6 +143,102 @@ export class ContractService {
     })
   }
 
+
+  /**
+   * Obtener información de un token
+   * @param pair              Pair proveniente del Factory
+   * @param pairKey           Identificador del pair 'A' o 'B'
+   * @param isNative          Identificador si el token es nativo
+   * @returns 
+   */
+  async getTokenInfo(pair: any, pairKey: string, isNative = false){
+
+    const contract = `token${pairKey}`;
+    const decimal = `decimalToken${pairKey}`;
+
+    /**
+     * Si el token es nativo
+     * - Retorna arreglo formateado con valores por defecto
+     */
+    if(isNative){
+      
+      return {
+        contract: pair[contract],
+        name: environment.chain.nativeCurrency.name,
+        symbol: environment.chain.nativeCurrency.symbol,
+        decimal: pair[decimal]
+      }
+    }
+
+
+    const [
+      name,
+      symbol,
+    ] = await Promise.all([
+      this.calculateAndCallCustomABI({
+        contractAddress: contract,
+        method: 'name',
+        params: null,
+        callType: 'call',
+        urlABI: this.erc20ABI
+      }),
+      this.calculateAndCallCustomABI({
+        contractAddress: contract,
+        method: 'symbol',
+        params: null,
+        callType: 'call',
+        urlABI: this.erc20ABI
+      })
+    ]);
+
+    return {
+      contract: pair[contract],
+      name,
+      symbol,
+      decimal: pair[decimal]
+    }
+
+  }
+
+
+  /**
+   *  Obtener información de los pares del factory
+   * @param dataPair 
+   * @param index 
+   * @returns 
+   */
+  async getTokenName(dataPair, index) {
+    let obj: any = {};
+
+    const [
+      tokenA,
+      tokenB
+    ] = await Promise.all([
+      this.getTokenInfo(dataPair, 'A', dataPair.isNative),
+      this.getTokenInfo(dataPair, 'B')
+    ])
+
+    obj.tokenA = tokenA;
+    obj.tokenB = tokenB;
+
+    obj.active = dataPair.active
+    obj.fee = dataPair.fee
+    obj.isNative = dataPair.isNative
+    obj.amountForTokens = dataPair.amountForTokens
+    obj.activeOracle = dataPair.activeOracle
+    obj.addressOracle = dataPair.addressOracle
+    obj.addressDecimalOracle = dataPair.addressDecimalOracle
+    obj.price = fromWei(dataPair.price, 18)
+    obj.pairId = index;
+
+    return obj;
+  }
+
+
+  /**
+   * Obtener información de la wallet del usuario
+   * @returns 
+   */
   async getUserData(){
     const accounts = this.accounts[0];
     const contractAddress = environment.contractAddress;
@@ -174,20 +276,24 @@ export class ContractService {
       myEther,
       myContractEther,
       balanceOfContract,
-      balanceOf,
-      getPreSaleCommission,
-      getOwner,
-      tokenPerEth,
-      allowance,
-      pause,
-      maticUsd,
-      proxyDataFeeds,
-      priceToken: (Number(maticUsd) / Number(tokenPerEth)).toFixed(5),
-      red: 'MATIC',
+      // balanceOf,
+      // getPreSaleCommission,
+      // getOwner,
+      // tokenPerEth,
+      // allowance,
+      // pause,
+      // maticUsd,
+      // proxyDataFeeds,
+      // priceToken: (Number(maticUsd) / Number(tokenPerEth)).toFixed(5),
+      red: environment.chain.nativeCurrency.name,
     };
   }
 
 
+  /**
+   * @name getData
+   * @returns 
+   */
   async getData() {
     return new Promise(async (resolve, reject) => {
       try {
@@ -206,20 +312,30 @@ export class ContractService {
         const userData = await this.getUserData();
         data = Object.assign({}, data, userData);
 
+        /** Obtener listado de pares */
+        // const pairList = await this.pairList();
+
+        // const pairPromise: any = []
+        // pairList.forEach((element, index) => {
+        //   if (element.active) { pairPromise.push(this.getTokenName(element, index)); }
+        // });
+
+        // data.pairList = await Promise.all(pairPromise)
+
         // data.myEther = await this.getBalanceEth(this.accounts[0]);
         // console.log("data.myEther", data.myEther)
 
         // data.balanceOfContract = await this._method("balanceOf", 'methods', data.contractAddress);
         // console.log("data.balanceOfContract", data.balanceOfContract)
 
-        let infoToken = await this._method("getInfoToken", 'methods')
-        // console.log("infoToken", infoToken)
-        if (infoToken) {
-          data.totalSupply = infoToken._totalSupply;
-          data.decimals = infoToken._decimals
-          data.symbol = infoToken._symbol
-          data.name = infoToken._name
-        }
+        // let infoToken = await this._method("getInfoToken", 'methods')
+        // // console.log("infoToken", infoToken)
+        // if (infoToken) {
+        //   data.totalSupply = infoToken._totalSupply;
+        //   data.decimals = infoToken._decimals
+        //   data.symbol = infoToken._symbol
+        //   data.name = infoToken._name
+        // }
         // data.balanceOf = await this._method("balanceOf", 'methods', this.accounts[0]);
         // data.accounts = this.accounts[0]
 
@@ -257,13 +373,15 @@ export class ContractService {
         reject(err)
       }
 
-    })
-
-
-
-
+    });
   }
 
+
+  /**
+   * @name getEthUsd
+   * TODO: validar uso
+   * @returns 
+   */
   getEthUsd() {
     return new Promise((resolve, reject) => {
       this._http.get(`${environment.API_URL}/walletProvider/getMaticUsd`)
@@ -276,6 +394,10 @@ export class ContractService {
     })
   }
 
+
+  /**
+   * @name eventsAll
+   */
   eventsAll() {
     // Subscribe to accounts change
     this.provider.on("accountsChanged", (accounts: string[]) => {
@@ -303,18 +425,14 @@ export class ContractService {
   }
 
 
-  _methods() {
-    return this.uToken.methods
-  }
-
-
-
-
-
+  /**
+   * @name getDataContract
+   * @returns 
+   */
   getDataContract() {
     let data: any = localStorage.getItem('_data_contract');
     if (data == "") { return "" }
-    return JSON.parse(data)
+    return JSON.parse(data);
   }
 
 
@@ -323,38 +441,41 @@ export class ContractService {
    */
   // totalSupply
   // methods
-  async _method(method: string, type: string, params?: any) {
-    let result;
-    // console.log("method", method)
-    // console.log("type", type)
-    // console.log("params", params)
+  // async _method(method: string, type: string, params?: any) {
+  //   let result;
+  //   // console.log("method", method)
+  //   // console.log("type", type)
+  //   // console.log("params", params)
 
 
-    if (method == 'allowance') {
-      result = await this.uToken[type][method](params, environment.contractAddress).call()
-        .catch((error) => {
-          console.log("error", error)
-        })
-    }
-    else if (params) {
-      result = await this.uToken[type][method](params).call()
-        .catch((error) => {
-          console.log("error", error)
-        })
-    } else {
-      result = await this.uToken[type][method]().call()
-        .catch((error) => {
-          console.log("error", error)
-        })
-    }
+  //   if (method == 'allowance') {
+  //     result = await this.uToken[type][method](params, environment.contractAddress).call()
+  //       .catch((error) => {
+  //         console.log("error", error)
+  //       })
+  //   }
+  //   else if (params) {
+  //     result = await this.uToken[type][method](params).call()
+  //       .catch((error) => {
+  //         console.log("error", error)
+  //       })
+  //   } else {
+  //     result = await this.uToken[type][method]().call()
+  //       .catch((error) => {
+  //         console.log("error", error)
+  //       })
+  //   }
 
-    return result;
-  }
+  //   return result;
+  // }
 
 
   /**
-* @notice  verify that the address is valid
-*/
+   * @name getBalanceEth
+   * @notice              verify that the address is valid
+   * @param account       Dirección de wallet
+   * @returns 
+   */
   getBalanceEth(account: string) {
     return new Promise((resolve, reject) => {
       this.web3js.eth.getBalance(account, (err, res) => {
@@ -369,174 +490,52 @@ export class ContractService {
   }
 
 
-  changePreSaleCommission(amount) {
-    try {
-      let account = this.accounts[0]
-      console.log("account", account)
-
-      this.uToken
-        .methods
-        .changePreSaleCommission(amount)
-        .estimateGas({ from: account })
-        .then(async (gas) => {
-          console.log("gas", gas);
-          // We now have the gas amount, we can now send the transaction
-          let result = await this.uToken
-            .methods
-            .changePreSaleCommission(amount)
-            .send({
-              from: account,
-              gas: gas
-            })
-
-          console.log("result", result)
-          this.reInitializating()
-          alert("changePreSaleCommission exitosos")
-        }).catch((error) => {
-          alert("Transacción denegada al usuario")
-          throw new Error(error);
-        });
-    } catch (error) {
-      console.log("error", error)
-      alert("Transacción denegada al usuario")
-    }
-  }
-
-  changeTokenPerEth(amount) {
-    try {
-      let account = this.accounts[0]
-      console.log("account", account)
-
-      this.uToken
-        .methods
-        .changeTokenPerEth(amount)
-        .estimateGas({ from: account })
-        .then(async (gas) => {
-          console.log("gas", gas);
-          // We now have the gas amount, we can now send the transaction
-          let result = await this.uToken
-            .methods
-            .changeTokenPerEth(amount)
-            .send({
-              from: account,
-              gas: gas
-            })
-
-          console.log("result", result)
-          this.reInitializating()
-          alert("changeTokenPerEth exitosos")
-        }).catch((error) => {
-          alert("Transacción denegada al usuario")
-          throw new Error(error);
-        });
-    } catch (error) {
-      console.log("error", error)
-      alert("Transacción denegada al usuario")
-    }
-  }
-
-  withdraw() {
-    try {
-      let account = this.accounts[0]
-      console.log("account", account)
-
-      this.uToken
-        .methods
-        .withdraw()
-        .estimateGas({ from: account })
-        .then(async (gas) => {
-          console.log("gas", gas);
-          // We now have the gas amount, we can now send the transaction
-          let result = await this.uToken
-            .methods
-            .withdraw()
-            .send({
-              from: account,
-              gas: gas
-            })
-
-          console.log("result", result)
-          this.reInitializating()
-          alert("comprar tokens exitosos")
-        }).catch((error) => {
-          alert("Transacción denegada al usuario")
-          throw new Error(error);
-        });
-    } catch (error) {
-      console.log("error", error)
-      alert("Transacción denegada al usuario")
-    }
+  /**
+   * @name changePreSaleCommission
+   * @param amount 
+   * @returns 
+   */
+  async changePreSaleCommission(amount) {
+    return await this.calculateAndCall('changePreSaleCommission', [amount], 'send');
   }
 
 
-  changeProxy(proxyDataFeed: string) {
-    // mumbai: 0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada - MATIC / USD	
-    // mainNet: 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0 - MATIC / USD	
-
-    try {
-      let account = this.accounts[0]
-      console.log("account", account)
-
-      this.uToken
-        .methods
-        .changeProxy(proxyDataFeed)
-        .estimateGas({ from: account })
-        .then(async (gas) => {
-          console.log("gas", gas);
-          // We now have the gas amount, we can now send the transaction
-          let result = await this.uToken
-            .methods
-            .changeProxy(proxyDataFeed)
-            .send({
-              from: account,
-              gas: gas
-            })
-
-          console.log("result", result)
-          this.reInitializating()
-          alert("proxyDataFeed exitosos")
-        }).catch((error) => {
-          alert("Transacción denegada al usuario")
-          throw new Error(error);
-        });
-    } catch (error) {
-      console.log("error", error)
-      alert("Transacción denegada al usuario")
-    }
+  /**
+   * @name changeTokenPerEth
+   * @param amount 
+   * @returns 
+   */
+  async changeTokenPerEth(amount) {
+    return await this.calculateAndCall('changeTokenPerEth', [amount], 'send');
   }
 
 
-  transferOwnership(accountTransferOwnership: string) {
-    try {
-      let account = this.accounts[0]
-      console.log("account", account)
+  /**
+   * @name withdraw
+   * @returns 
+   */
+  async withdraw() {
+    return await this.calculateAndCall('withdraw', null, 'send');
+  }
 
-      this.uToken
-        .methods
-        .transferOwnership(accountTransferOwnership)
-        .estimateGas({ from: account })
-        .then(async (gas) => {
-          console.log("gas", gas);
-          // We now have the gas amount, we can now send the transaction
-          let result = await this.uToken
-            .methods
-            .transferOwnership(accountTransferOwnership)
-            .send({
-              from: account,
-              gas: gas
-            })
 
-          console.log("result", result)
-          this.reInitializating()
-          alert("transferOwnership exitosos")
-        }).catch((error) => {
-          alert("Transacción denegada al usuario")
-          throw new Error(error);
-        });
-    } catch (error) {
-      console.log("error", error)
-      alert("Transacción denegada al usuario")
-    }
+  /**
+   * @name changeProxy
+   * @param proxyDataFeed 
+   * @returns 
+   */
+  async changeProxy(proxyDataFeed: string) {
+    return await this.calculateAndCall('changeProxy', [proxyDataFeed], 'send');
+  }
+
+
+  /**
+   * @name transferOwnership
+   * @param accountTransferOwnership 
+   * @returns 
+   */
+  async transferOwnership(accountTransferOwnership: string) {
+    return await this.calculateAndCall('transferOwnership', [accountTransferOwnership], 'send');
   }
 
 
@@ -1512,6 +1511,7 @@ export class ContractService {
       throw new Error(err);
     }
   }
+
 
   /** ===============================================================
    *       Méthodo genérico para llamadas al SC personalizado
