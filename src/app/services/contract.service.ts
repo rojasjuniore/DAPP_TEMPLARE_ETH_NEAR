@@ -8,6 +8,9 @@ import { AbiService } from './abi.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AddTokenAMetamaskService } from './add-metamask.service';
 import { HttpClient } from '@angular/common/http';
+import { fromWei, toWei } from '../helpers/utils';
+import { approve as APPROVE } from '../helpers/abi';
+import { Sweetalert2Service } from './sweetalert2.service';
 
 /**
  * TODO: Revisar tipado de llamados en promesas
@@ -34,14 +37,20 @@ export class ContractService {
   public setAccountStakes = new Subject<any>();
   accountStakes$ = this.setAccountStakes.asObservable();
 
+  public spinnerConecction = new Subject<any>();
+  spinnerConecction$ = this.spinnerConecction.asObservable();
+
   public timeLockedWalletABI = '/assets/abi/erc20.TimeLockedWallet.json';
   public erc20ABI = '/assets/abi/erc20.json';
+  public erc721ABI = '/assets/abi/erc721.json';
+  public waitForTransactions = 12000;
 
   constructor(
     private spinner: NgxSpinnerService,
     private _http: HttpClient,
     public metamaskService: AddTokenAMetamaskService,
-    public abiService: AbiService
+    public abiService: AbiService,
+    public sweetalert2Srv: Sweetalert2Service,
   ) {
 
     const providerOptions = {
@@ -525,6 +534,211 @@ export class ContractService {
   }
 
 
+  /**
+   * @name approve
+   * @description                   Tokens
+   * @param addresstoken 
+   * @param amount 
+   * @param contractAddress 
+   * @param decimals 
+   * @returns 
+   */
+  async approve(addresstoken: string, amount: string, contractAddress: string, decimals: number) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const contract: any = await this.abiService.getABIByUrl(this.erc20ABI)
+        let accounts = this.accounts[0]
+        //@dev cargamos la abi de contracto secundarios con el metodo approve
+        let utoken: any = this.getAbiContract([contract.approve], addresstoken)
+        //@dev ejecutamos la llamada a la funcion en el contract
+        let result = await utoken.methods.approve(contractAddress, toWei(amount, decimals)).send({ from: accounts })
+        resolve(result)
+      } catch (err) {
+        console.log("error", err)
+        resolve(false)
+      }
+    })
+  }
+
+
+  /**
+   * @name approveAll
+   * @description                       NFT's
+   * @param addresstoken 
+   * @param contractAddress 
+   * @returns 
+   */
+  async approveAll(addresstoken, contractAddress) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const contract: any = await this.abiService.getABIByUrl(this.erc721ABI);
+        console.log("contract", contract[49])
+        let accounts = this.accounts[0]
+        //@dev cargamos la abi de contracto secundarios con el metodo approve
+        let utoken: any = this.getAbiContract([contract[49]], addresstoken)
+        //@dev ejecutamos la llamada a la funcion en el contract
+        let result = await utoken.methods.setApprovalForAll(contractAddress, true).send({ from: accounts })
+        resolve(result)
+      } catch (err) {
+        console.log("error", err)
+        resolve(false)
+      }
+    })
+  }
+
+
+  /**
+   * @name isApprovedForAll
+   * @description                           NTF's
+   * @param addresstoken 
+   * @param contractAddress 
+   * @returns 
+   */
+  async isApprovedForAll(addresstoken, contractAddress) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const contract: any = await this.abiService.getABIByUrl(this.erc721ABI);
+        console.log("contract", contract[30])
+        let accounts = this.accounts[0]
+
+        console.log("addresstoken", addresstoken)
+        console.log("contractAddress", contractAddress)
+
+
+        //@dev cargamos la abi de contracto secundarios con el metodo approve
+        let utoken: any = this.getAbiContract([contract[30]], addresstoken)
+        //@dev ejecutamos la llamada a la funcion en el contract
+        let result = await utoken.methods.isApprovedForAll(accounts, contractAddress).call({ from: accounts })
+        resolve(result)
+      } catch (err) {
+        console.log("error", err)
+        resolve(false)
+      }
+    })
+  }
+
+
+  /**
+   * @name getApproveNFT
+   * @description                       Approve Tokens
+   * @param addressNft 
+   * @param nftId 
+   * @param contractAddress 
+   * @returns 
+   */
+  getApproveNFT(addressNft: string, nftId: number, contractAddress: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const contract: any = await this.abiService.getABIByUrl(this.erc721ABI);
+        let accounts = this.accounts[0]
+        //@dev cargamos la abi de contracto secundarios con el metodo approve
+        let utoken: any = this.getAbiContract([contract[49]], addressNft)
+        // @dev verificamos el gas de la transaccion
+        let _gas = await utoken
+          .methods
+          .approve(addressNft, nftId)
+          .estimateGas({ from: accounts })
+        //@dev ejecutamos la llamada a la funcion en el contract
+        let result = await utoken.methods
+          .approve(contractAddress, nftId)
+          .send({ from: accounts, gas: _gas })
+          .on('transactionHash', (hash) => {
+            console.log("hash", hash)
+            setTimeout(() => {
+              resolve(true)
+            }, this.waitForTransactions)
+          })
+          .on('receipt', (receipt) => {
+            console.log("receipt", receipt)
+          })
+          .on('confirmation', (confirmationNumber, receipt) => {
+            console.log("confirmationNumber", confirmationNumber)
+            console.log("receipt", receipt)
+          })
+          .on('error', (err) => {
+            console.log("error", err.message)
+            this.sweetalert2Srv.showError(err.message, 2)
+            this.spinnerConecction.next(false)
+          })
+        resolve(result)
+      } catch (err) {
+        console.log("error", err)
+        this.sweetalert2Srv.showError("Error", 2)
+        console.log("error", err)
+        resolve(false)
+      }
+    })
+  }
+
+
+  /**
+   * @name getApproveTokenAddress
+   * @param addresstoken 
+   * @param amount 
+   * @param decimals 
+   * @param contractAddress 
+   * @returns 
+   */
+  getApproveTokenAddress(addresstoken: string, amount: string, decimals, contractAddress) {
+    return new Promise(async (resolve, reject) => {
+      try {
+
+        // cargamos la abi de contracto secundarios con el metodo approve
+        let utoken = this.getAbiContract(APPROVE, addresstoken)
+
+        let account = this.accounts[0]
+        let tokenTotal = toWei(amount, decimals)
+        console.warn("tokenTotal", tokenTotal)
+
+        // hacemmos la consulta
+        let _gas = await utoken
+          .methods
+          .approve(contractAddress, tokenTotal)
+          .estimateGas({ from: account })
+
+        console.log("_gas", _gas)
+        // We now have the gas amount, we can now send the transaction
+        utoken
+          .methods
+          .approve(contractAddress, tokenTotal)
+          .send({
+            from: account,
+            gas: _gas
+          })
+          .on('transactionHash', (hash) => {
+            console.log("hash", hash)
+            setTimeout(() => {
+              resolve(true)
+            }, this.waitForTransactions)
+          })
+
+          .on('receipt', (receipt) => {
+            console.log("receipt", receipt)
+          })
+          .on('confirmation', (confirmationNumber, receipt) => {
+            console.log("confirmationNumber", confirmationNumber)
+            console.log("receipt", receipt)
+          })
+          .on('error', (err) => {
+            console.log("error", err.message)
+            this.sweetalert2Srv.showError(err.message, 2)
+            this.spinnerConecction.next(false)
+          })
+
+
+      } catch (err) {
+        console.log("error", err)
+        this.sweetalert2Srv.showError("Error", 2)
+        resolve(false)
+      }
+
+    });
+  }
+
+
+  /**
+   * @name logout
+   */
   async logout() {
     await this._web3Modal.clearCachedProvider();
     this.provider = null
