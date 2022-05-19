@@ -751,6 +751,721 @@ export class ContractService {
   }
 
 
+
+
+  /* =======================================================
+   *                         Withdraw   
+   * ===================================================== */
+
+  /**
+   * @name withdrawMaticOwner
+   * @param amount 
+   */
+   async withdrawMaticOwner(amount) {
+    return await this.calculateAndCall('withdrawMaticOwner', [amount], 'send');
+  }
+
+
+  /**
+   * @name withdrawTokenOnwer
+   * @param token 
+   * @param amount 
+   */
+  async withdrawTokenOnwer(token, amount) {
+    return await this.calculateAndCall('withdrawTokenOnwer', [token, amount], 'send');
+  }
+
+
+
+
+  /* =======================================================
+   *                    TransferHistory   
+   * ===================================================== */
+
+
+  /**
+   * @name daySellLimit
+   */
+  async daySellLimit() {
+    return await this.calculateAndCall('daySellLimit', null, 'call');
+  }
+
+
+  /**
+   * @name dayBuyLimit
+   */
+  async dayBuyLimit() {
+    return await this.calculateAndCall('dayBuyLimit', null, 'call');
+  }
+
+
+  /**
+   * @name vaultAddress
+   */
+  async vaultAddress() {
+    return await this.calculateAndCall('vaultAddress', null, 'call');
+  }
+
+
+  /**
+   * @name limitSell
+   * @param address 
+   */
+  async limitSell(address) {
+    return await this.calculateAndCall('limitSell', [address], 'send');
+  }
+
+
+  /**
+   * @name limitBuy
+   * @param buyAmount 
+   */
+  async limitBuy(buyAmount) {
+    return await this.calculateAndCall('limitBuy', [buyAmount], 'send');
+  }
+
+
+  /**
+   * @name setSellLimit
+   * @param newLimit 
+   */
+  async setSellLimit(newLimit) {
+    return await this.calculateAndCall('setSellLimit', [newLimit], 'send');
+  }
+
+
+  /**
+   * @name setBuyLimit
+   * @param newLimit 
+   */
+  async setBuyLimit(newLimit) {
+    return await this.calculateAndCall('setBuyLimit', [newLimit], 'send');
+  }
+
+
+  /**
+   * @name setVaultAddress
+   * @param address 
+   */
+  async setVaultAddress(address) {
+    return await this.calculateAndCall('setVaultAddress', [address], 'send');
+  }
+
+
+
+
+  /* =======================================================
+   *                        Oracle   
+   * ===================================================== */
+
+
+  /**
+   * @name getLatestPrice
+   * @param oracle 
+   * @param decimals 
+   */
+  async getLatestPrice(oracle, decimals) {
+    return await this.calculateAndCall('getLatestPrice', [oracle, decimals], 'call');
+  }
+
+
+
+
+  /* =======================================================
+   *                        Administered   
+   * ===================================================== */
+
+
+  /**
+   * @name USER_ROLE
+  * @param oracle 
+  */
+  async USER_ROLE() {
+    return await this.calculateAndCall('USER_ROLE', null, 'call');
+  }
+
+
+  /**
+   * @name isAdmin
+   * @returns 
+   */
+  async isAdmin(){
+    const [ account ] = this.accounts;
+    return await this.calculateAndCall('isAdmin', [ account ], 'call');
+  }
+
+
+  /**
+   * @name isUser
+   * @returns 
+   */
+  async isUser(){
+    const [ account ] = this.accounts;
+    return await this.calculateAndCall('isUser', [ account ], 'call');
+  }
+
+
+  /**
+   * @name addUser
+   * @param account
+   * @returns 
+   */
+  async addUser(account: string){
+    return await this.calculateAndCall('addUser', [ account ], 'send');
+  }
+
+
+  /**
+   * @name addAdmin
+   * @param account
+   * @returns 
+   */
+  async addAdmin(account: string){
+    return await this.calculateAndCall('addAdmin', [ account ], 'send');
+  }
+
+
+  /**
+   * @name removeUser
+   * @param account
+   * @returns 
+   */
+  async removeUser(account: string){
+    return await this.calculateAndCall('removeUser', [ account ], 'send');
+  }
+
+
+  /**
+   * @name renounceAdmin
+   * @returns 
+   */
+  async renounceAdmin(){
+    const [ account ] = this.accounts;
+    return await this.calculateAndCall('renounceAdmin', [ account ], 'send');
+  }
+
+
+
+
+  /* =======================================================
+   *                        Chainalysis   
+   * ===================================================== */
+
+
+  /**
+   * @name SANCTIONS_CONTRACT
+   * @returns 
+   */
+   async SANCTIONS_CONTRACT() {
+    return await this.calculateAndCall('SANCTIONS_CONTRACT', null, 'call');
+  }
+
+
+  /**
+   * @name stateSanctions
+   * @returns 
+   */
+  async stateSanctions() {
+    return await this.calculateAndCall('stateSanctions', null, 'call');
+  }
+
+
+  /**
+   * @name Sanctions
+   * @param address
+   * @returns 
+   */
+  async Sanctions(address) {
+    return await this.calculateAndCall('Sanctions', [ address ], 'call');
+  }
+
+
+  /**
+   * @name setAddressSanctions
+   * @param address
+   * @returns 
+   */
+  async setAddressSanctions(address) {
+    return await this.calculateAndCall('setAddressSanctions', [ address ], 'send');
+  }
+
+
+  /**
+   * @name setStateSanctions
+   * @param status
+   * @returns 
+   */
+  async setStateSanctions(status) {
+    return await this.calculateAndCall('setStateSanctions', [ status ], 'send');
+  }
+
+
+
+
+  /* =======================================================
+   *                        FactorySwap   
+   * ===================================================== */
+
+
+  /**
+   * @name pairCount
+   */
+  async pairCount() {
+    return await this.calculateAndCall('pairCount', null, 'call');
+  }
+
+
+  /**
+   * @name registerPair
+   * @param pair
+   * @param pair._price
+   * @param pair._tokenA
+   * @param pair._decimalTokenA
+   * @param pair._tokenB
+   * @param pair._decimalTokenB
+   * @param pair._amountForTokens
+   * @param pair._fee
+   * @param pair._activeOracle
+   * @param pair._addressOracle
+   * @param pair._addressDecimalOracle 
+   * @param pair._active
+   */
+  async registerPair(pair) {
+    return await this.calculateAndCall('registerPair', pair, 'send');
+  }
+
+
+  /**
+   * @name pairList
+   */
+  async pairList() {
+    return await this.calculateAndCall('pairList', null, 'call');
+  }
+
+
+  /**
+   * @name pairChange
+   * @param pair 
+   * @param pair._type
+   * @param pair._decimal
+   * @param pair._id
+   * @param pair._bool
+   * @param pair._address
+   * @param pair._value
+   */
+  async pairChange(pair) {
+    return await this.calculateAndCall('pairChange', pair, 'send');
+  }
+
+  /**
+   * @name getPair
+   * @param pairId 
+   * @returns 
+   */
+  async getPair(pairId: any) {
+    return await this.calculateAndCall('getPair', [ pairId ], 'call');
+  }
+
+
+
+
+  /* =======================================================
+   *                        FactoryStakeToken   
+   * ===================================================== */
+  
+
+  /**
+   * @name stakeCountToken
+   * @returns 
+   */
+  async stakeCountToken() {
+    return await this.calculateAndCall('stakeCountToken', null, 'call');
+  }
+  
+
+  /**
+   * @name registerStakeToken
+   * @param params
+   * @param params.nameAddressToken
+   * @param params.addressToken
+   * @param params.rewardRate
+   * @param params.rewardPerMonth
+   * @param params.day
+   * @param params.minStaked
+   * @param params.status
+   * @returns 
+   */
+  async registerStakeToken(params) {
+    return await this.calculateAndCall('registerStakeToken', params, 'send');
+  }
+
+
+  /**
+   * @name stakeListTokenToken
+   * @returns 
+   */
+  async stakeListTokenToken() {
+    return await this.calculateAndCall('stakeListTokenToken', null, 'call');
+  }
+
+
+  /**
+   * @name activeStakeToken
+   * @param id
+   * @param status
+   * @returns 
+   */
+  async activeStakeToken(id, status) {
+    return await this.calculateAndCall('activeStakeToken', [id, status], 'send');
+  }
+
+
+  /**
+   * @name getDaysToken
+   * @param day
+   * @returns 
+   */
+  async getDaysToken(day) {
+    return await this.calculateAndCall('getDaysToken', [day], 'call');
+  }
+
+
+  /**
+   * @name getStakeToken
+   * @param id
+   * @returns 
+   */
+  async getStakeToken(id) {
+    return await this.calculateAndCall('getStakeToken', [id], 'call');
+  }
+
+
+  /* =======================================================
+   *                        FactoryStakeNft   
+   * ===================================================== */
+
+
+  /**
+   * @name stakeNftCount
+   * @returns 
+   */
+  async stakeNftCount() {
+    return await this.calculateAndCall('_stakeCount', null, 'call');
+  }
+
+  
+  /**
+   * @name registerStakeNft
+   * @param params
+   * @param params._nameAddressNft
+   * @param params._addressNft
+   * @param params._nameAddressTokenReward
+   * @param params._addressTokenReward
+   * @param params._rewardTotal
+   * @param params._day
+   * @param params._status
+   * @returns 
+   */
+  async registerStakeNft(params) {
+    return await this.calculateAndCall('registerStake', [params], 'send');
+  }
+
+  
+  /**
+   * @name stakeNftList
+   * @returns 
+   */
+   async stakeNftList() {
+    return await this.calculateAndCall('stakeList', null, 'call');
+  }
+
+
+  /**
+   * @name getStake
+   * @param id
+   * @returns 
+   */
+   async getStake(id) {
+    return await this.calculateAndCall('getStake', [id], 'call');
+  }
+
+
+  /**
+   * @name activateStakedNft
+   * @param id
+   * @param status
+   * @returns 
+   */
+   async activateStakedNft(id, status) {
+    return await this.calculateAndCall('activateStaked', [id, status], 'call');
+  }
+
+
+  /* =======================================================
+   *                        Swap   
+   * ===================================================== */
+
+
+  /**
+   * @name BuyTokensFor
+   * @param pairId 
+   * @param tokenAmount 
+   */
+   async BuyTokensFor(pairId, tokenAmount) {
+    return await this.calculateAndCall('BuyTokensFor', [pairId, tokenAmount], 'send');
+  }
+
+
+  /**
+   * @name SellTokensFor
+   * @param pairId 
+   * @param tokenAmount 
+   */
+  async SellTokensFor(pairId, tokenAmount) {
+    return await this.calculateAndCall('SellTokensFor', [pairId, tokenAmount], 'send');
+  }
+
+
+  /**
+   * @name balanceOf
+   * @param token 
+   * @param address 
+   */
+  async balanceOf(token, address) {
+    return await this.calculateAndCall('balanceOf', [token, address], 'call');
+  }
+
+
+
+
+  /* =======================================================
+   *                        StakedToken   
+   * ===================================================== */
+
+
+  /**
+   * @name stakeToken
+   * @param amountTokens 
+   * @param stakeId 
+   */
+  async stakeToken(amountTokens, stakeId) {
+    return await this.calculateAndCall('stakeToken', [amountTokens, stakeId], 'send');
+  }
+
+  
+  /**
+   * @name withdrawStake
+   * @param amountTokens 
+   * @param stakeId 
+   */
+  async withdrawStake(amountTokens, stakeId) {
+    return await this.calculateAndCall('withdrawStake', [amountTokens, stakeId], 'send');
+  }
+
+
+  /**
+   * @name totalStakesToken
+   */
+  async totalStakesToken() {
+    return await this.calculateAndCall('totalStakesToken', null, 'call');
+  }
+
+
+  /* =======================================================
+   *                        StakedNft   
+   * ===================================================== */
+
+
+  /**
+   * @name stakeNft
+   * @param stakeId
+   * @param tokenId
+   */
+  async stakeNft(stakeId, tokenId) {
+    return await this.calculateAndCall('stakeNft', [stakeId, tokenId], 'send');
+  }
+
+
+  /**
+   * @name withdrawNFTStake
+   * @param index
+   */
+  async withdrawNFTStake(index) {
+    return await this.calculateAndCall('withdrawNFTStake', [index], 'send');
+  }
+
+
+
+
+  /* =======================================================
+   *                        TimeLockedWalletFactory   
+   * ===================================================== */
+
+
+  /**
+   * @name newTimeLockedWallet
+   * @param params
+   * @param params._token
+   * @param params._owner
+   * @param params._amount
+   * @param params._unlockDate
+   */
+   async newTimeLockedWallet(params) {
+    return await this.calculateAndCall('newTimeLockedWallet', params, 'send');
+  }
+
+
+  /**
+   * @name fundRemover
+   * @param params
+   * @param params._token
+   * @param params._account
+   * @param params._amount
+   */
+   async fundRemover(params) {
+    return await this.calculateAndCall('fundRemover', params, 'send');
+  }
+
+
+  /**
+   * @name getWallets
+   * @param userAddress
+   */
+   async getWallets(userAddress) {
+    return await this.calculateAndCall('getWallets', [userAddress], 'send');
+  }
+  
+  
+  /* =======================================================
+  *                        TimeLockedWallet   
+  * ===================================================== */
+
+
+  /**
+   * @name timeLockedWallet_creator
+   * @param address
+   */
+  async tlw_creator(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'creator',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+  
+  /**
+   * @name timeLockedWallet_walletOwner
+   * @param address
+   */
+  async tlw_walletOwner(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'walletOwner',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+  
+  /**
+   * @name timeLockedWallet_amount
+   * @param address
+   */
+  async tlw_amount(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'amount',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+ 
+  
+  /**
+   * @name timeLockedWallet_unlockDate
+   * @param address
+   */
+  async tlw_unlockDate(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'unlockDate',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+  
+  /**
+   * @name timeLockedWallet_createdAt
+   * @param address
+   */
+  async tlw_createdAt(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'createdAt',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+
+  /**
+   * @name timeLockedWallet_token
+   * @param address
+   */
+  async tlw_token(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'token',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+  /**
+   * @name timeLockedWallet_removeAdvisor
+   * @param address
+   */
+  async tlw_removeAdvisor(address, account) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'removeAdvisor',
+      callType: 'send',
+      params: { account },
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+  /**
+   * @name timeLockedWallet_withdraw
+   * @param address
+   */
+  async tlw_withdraw(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'withdraw',
+      callType: 'send',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+
+
+  /**
+   * @name timeLockedWallet_info
+   * @param address
+   */
+  async tlw_info(address) {
+    return await this.calculateAndCallCustomABI({
+      contractAddress: address,
+      method: 'info',
+      callType: 'call',
+      urlABI: this.timeLockedWalletABI
+    });
+  }
+ 
+
   /** ===============================================================
    *               Méthodo genérico para llamadas al SC
    * ================================================================
