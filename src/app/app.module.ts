@@ -27,11 +27,16 @@ import { PipesModule } from './pipes/pipes.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdminModule } from './components/admin/admin.module';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 
 @NgModule({
@@ -65,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgxSpinnerModule,
     PipesModule,
     AdminModule,
+    NgxMaskModule.forRoot(maskConfig),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
