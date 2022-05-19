@@ -16,7 +16,6 @@ import { PipesModule } from './pipes/pipes.module';
 // import { ApproveComponent } from './components/admin/approve/approve.component';
 // import { BalanceOfContractEtherComponent } from './components/admin/balance-of-contract-ether/balance-of-contract-ether.component';
 // import { ChangePreSaleCommissionComponent } from './components/admin/change-pre-sale-commission/change-pre-sale-commission.component';
-// import { ChangeTokenPerEthComponent } from './components/admin/change-token-per-eth/change-token-per-eth.component';
 // import { MintComponent } from './components/admin/mint/mint.component';
 // import { MetamaskComponent } from './components/metamask/metamask.component';
 // import { NavbarComponent } from './components/navbar/navbar.component';
@@ -48,7 +47,6 @@ const maskConfig: Partial<IConfig> = {
     // BalanceOfContractEtherComponent,
     // ChangeTokenPerEthComponent,
     // MintComponent,
-    // ChangePreSaleCommissionComponent,
   ],
   imports: [
     BrowserModule,
