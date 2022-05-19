@@ -1,0 +1,15 @@
+<div class="card mb-4 box-shadow text-center">
+    <div class="card-body">
+        <h3>Withdraw matic owner</h3>
+        <form [formGroup]="form">
+            <input class="form-control" name="value" id="value" formControlName="value" 
+                type="number">
+            <div class="mt-2 d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a type="button" class="nav-item nav-link" (click)="withdrawMaticOwner()">Retirar</a>
+                </div>
+                <small class="text-muted">Unicamente Administrador</small>
+            </div>
+        </form>
+    </div>
+</div>

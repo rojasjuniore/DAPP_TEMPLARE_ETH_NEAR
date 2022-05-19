@@ -10,6 +10,8 @@ import { SellLimitComponent } from './sell-limit/sell-limit.component';
 import { SetValueAddressComponent } from './set-value-address/set-value-address.component';
 import { FactorySwapComponent } from './factory-swap/factory-swap.component';
 import { FactorySwapUpdatePairComponent } from './factory-swap-update-pair/factory-swap-update-pair.component';
+import { WithdrawMaticOwnerComponent } from './withdraw-matic-owner/withdraw-matic-owner.component';
+import { WithdrawTokenOnwerComponent } from './withdraw-token-onwer/withdraw-token-onwer.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { FactorySwapUpdatePairComponent } from './factory-swap-update-pair/facto
     SetValueAddressComponent,
     FactorySwapComponent,
     FactorySwapUpdatePairComponent,
+    WithdrawMaticOwnerComponent,
+    WithdrawTokenOnwerComponent,
   ],
   imports: [
     CommonModule,
