@@ -15,7 +15,9 @@ export class AddTokenAMetamaskService {
       let data1: any = localStorage.getItem('_data_contract')
       this.token = JSON.parse(data1);
       console.log("this.token ", this.token)
+
       // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+      
       const wasAdded = await window.ethereum.request({
         method: 'wallet_watchAsset',
         params: {
@@ -24,7 +26,7 @@ export class AddTokenAMetamaskService {
             address: this.token.contractAddress, // The address that the token is at.
             symbol: this.token.symbol, // A ticker symbol or shorthand, up to 5 chars.
             decimals: this.token.decimals, // The number of decimals in the token
-            image: 'https://mindworld.io/wp-content/uploads/2021/08/logo_m.svg', // A string url of the token logo
+            image: environment.urlTokenLogo, // A string url of the token logo
           },
         },
       });
@@ -46,7 +48,7 @@ export class AddTokenAMetamaskService {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x89' }],
+        params: [{ chainId: environment.chain.chainId }],
       });
     } catch (error: any) {
       console.log("error", error)
@@ -56,15 +58,11 @@ export class AddTokenAMetamaskService {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: '0x89',
-                chainName: 'Polygon Mainnet',
-                nativeCurrency: {
-                  name: 'MATIC',
-                  symbol: 'MATIC',
-                  decimals: 18,
-                },
-                rpcUrls: ['https://rpc-mainnet.maticvigil.com/'],
-                blockExplorerUrls: ['https://polygonscan.com/'],
+                chainId: environment.chain.chainId,
+                chainName: environment.chain.chainName,
+                nativeCurrency: environment.chain.nativeCurrency,
+                rpcUrls: [ environment.chain.rpcUrls ],
+                blockExplorerUrls: [ environment.chain.blockExplorerUrls ],
               },
             ],
           });

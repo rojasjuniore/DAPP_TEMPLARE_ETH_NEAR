@@ -9,19 +9,28 @@ export const environment = {
   configUrlAbi: "/assets/abi/DevToken.json",
   contractAddress: "####",
   infuraId: "#",
+  urlTokenLogo: "#",
   chain: {
-    chainId: 137,
-    chainIdTest: 80001,
-    chainName: "Polygon Mainnet",
-    rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
-    rpcMainnet: "https://polygon-mainnet.infura.io/v3/",
-    rpcTestnet: "https://polygon-mumbai.infura.io/v3/",
+
+    // Testnet
+    chainId: 80001,
+    chainName: "Polygon Testnet",
+    rpc: "https://polygon-mumbai.infura.io/v3/",
+    rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
+    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+
+    // Mainnnet 
+    // chainId: 137,
+    // chainName: "Polygon Mainnet",
+    // rpc: "https://polygon-mainnet.infura.io/v3/",
+    // rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
+    // blockExplorerUrls: ["https://polygonscan.com/"],
+
     nativeCurrency: {
-      name: "Polygon Mainnet",
+      name: "Polygon",
       symbol: "MATIC",
       decimals: "18",
     },
-    blockExplorerUrls: ["https://explorer.matic.network/"]
   },
 };
 

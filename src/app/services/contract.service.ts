@@ -61,8 +61,8 @@ export class ContractService {
           chainId: environment.chain.chainId,
           infuraId: environment.infuraId, // required,
           rpc: {
-            137: "https://polygon-mainnet.infura.io/v3/" + environment.infuraId,
-            80001: "https://polygon-mumbai.infura.io/v3/" + environment.infuraId,
+            [environment.chain.chainId]: environment.chain.rpc + environment.infuraId,
+            // [environment.chain.chainIdTest]: environment.chain.rpcTestnet + environment.infuraId,
           },
         },
         display: {
