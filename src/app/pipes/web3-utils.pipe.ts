@@ -10,9 +10,9 @@ export class Web3UtilsPipe implements PipeTransform {
 
   transform(value: string, type: string) {
     if (type == "toWei") {
-      return toWei(value);
+      return toWei(value, 18);
     } else if (type == "fromWei") {
-      return fromWei(value);
+      return fromWei(value, 18);
     } else if (type == 'dateFromBlock') {
       return getDateFromBlock(value)
     }
