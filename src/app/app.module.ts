@@ -19,7 +19,6 @@ import { PipesModule } from './pipes/pipes.module';
 // import { ChangePreSaleCommissionComponent } from './components/admin/change-pre-sale-commission/change-pre-sale-commission.component';
 // import { ChangeTokenPerEthComponent } from './components/admin/change-token-per-eth/change-token-per-eth.component';
 // import { MintComponent } from './components/admin/mint/mint.component';
-// import { OracleComponent } from './components/admin/oracle/oracle.component';
 // import { PausableComponent } from './components/admin/pausable/pausable.component';
 // import { TransferOwnershipComponent } from './components/admin/transfer-ownership/transfer-ownership.component';
 // import { MetamaskComponent } from './components/metamask/metamask.component';
@@ -56,7 +55,6 @@ const maskConfig: Partial<IConfig> = {
     // PausableComponent,
     // TransferOwnershipComponent,
     // ChangePreSaleCommissionComponent,
-    // OracleComponent
   ],
   imports: [
     BrowserModule,
