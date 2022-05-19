@@ -15,6 +15,7 @@ import { WithdrawTokenOnwerComponent } from './withdraw-token-onwer/withdraw-tok
 import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
 import { PausableComponent } from './pausable/pausable.component';
 import { BurnComponent } from './burn/burn.component';
+import { MintComponent } from './mint/mint.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { BurnComponent } from './burn/burn.component';
     TransferOwnershipComponent,
     PausableComponent,
     BurnComponent,
+    MintComponent,
   ],
   imports: [
     CommonModule,

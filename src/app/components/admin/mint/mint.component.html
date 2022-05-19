@@ -1,34 +1,42 @@
-<label for="basic-url" class="form-label">
-Mint: creará tokens en la dirección ingresada y luego aumentará el suministro total 
-</label>
+<div class="card mb-4 box-shadow text-center">
+    <div class="card-body">
+        <h3>Mint</h3>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="mb-3">
-        <label class="form-label">{{'account' | titlecase}} </label>
-        <input type="text" formControlName="account" class="form-control" placeholder="account">
-    </div>
-    <div *ngIf="submitted && f.account.errors" class="invalid-feedback">
-        <div *ngIf="f.account.errors.required" class="ion-text-center red">
-            <p>
-                {{'is required' | titlecase }}
-            </p>
-        </div>
-    </div>
+        <label for="basic-url" class="form-label">
+            Mint: creará tokens en la dirección ingresada y luego aumentará el suministro total 
+            </label>
+            
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="mb-3">
+                    <label class="form-label">{{'account' | titlecase}} </label>
+                    <input type="text" formControlName="account" class="form-control" placeholder="account">
+                </div>
+                <div *ngIf="submitted && f.account.errors" class="invalid-feedback">
+                    <div *ngIf="f.account.errors.required" class="ion-text-center red">
+                        <p>
+                            {{'is required' | titlecase }}
+                        </p>
+                    </div>
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label">{{'Amount' | titlecase}} </label>
+                    <input type="text" formControlName="stakeAmount" class="form-control" placeholder="Amount">
+                </div>
+                <div *ngIf="submitted && f.stakeAmount.errors" class="invalid-feedback">
+                    <div *ngIf="f.stakeAmount.errors.required" class="ion-text-center red">
+                        <p>
+                            {{'is required' | titlecase }}
+                        </p>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button (click)="submit()" type="submit" value="Submit" class="btn btn-primary" type="button">
+                        {{'mint' | titlecase}}
+                    </button>
+                </div>
+            </form>
 
-    <div class="mb-3">
-        <label class="form-label">{{'Amount' | titlecase}} </label>
-        <input type="text" formControlName="stakeAmount" class="form-control" placeholder="Amount">
     </div>
-    <div *ngIf="submitted && f.stakeAmount.errors" class="invalid-feedback">
-        <div *ngIf="f.stakeAmount.errors.required" class="ion-text-center red">
-            <p>
-                {{'is required' | titlecase }}
-            </p>
-        </div>
-    </div>
-    <div class="d-grid gap-2">
-        <button (click)="submit()" type="submit" value="Submit" class="btn btn-primary" type="button">
-            {{'mint' | titlecase}}
-        </button>
-    </div>
-</form>
+</div>
+
