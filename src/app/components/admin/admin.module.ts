@@ -13,6 +13,7 @@ import { FactorySwapUpdatePairComponent } from './factory-swap-update-pair/facto
 import { WithdrawMaticOwnerComponent } from './withdraw-matic-owner/withdraw-matic-owner.component';
 import { WithdrawTokenOnwerComponent } from './withdraw-token-onwer/withdraw-token-onwer.component';
 import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
+import { PausableComponent } from './pausable/pausable.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { TransferOwnershipComponent } from './transfer-ownership/transfer-owners
     WithdrawMaticOwnerComponent,
     WithdrawTokenOnwerComponent,
     TransferOwnershipComponent,
+    PausableComponent,
   ],
   imports: [
     CommonModule,

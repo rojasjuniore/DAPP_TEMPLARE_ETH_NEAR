@@ -19,8 +19,6 @@ import { PipesModule } from './pipes/pipes.module';
 // import { ChangePreSaleCommissionComponent } from './components/admin/change-pre-sale-commission/change-pre-sale-commission.component';
 // import { ChangeTokenPerEthComponent } from './components/admin/change-token-per-eth/change-token-per-eth.component';
 // import { MintComponent } from './components/admin/mint/mint.component';
-// import { PausableComponent } from './components/admin/pausable/pausable.component';
-// import { TransferOwnershipComponent } from './components/admin/transfer-ownership/transfer-ownership.component';
 // import { MetamaskComponent } from './components/metamask/metamask.component';
 // import { NavbarComponent } from './components/navbar/navbar.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -52,8 +50,6 @@ const maskConfig: Partial<IConfig> = {
     // BurnComponent,
     // ChangeTokenPerEthComponent,
     // MintComponent,
-    // PausableComponent,
-    // TransferOwnershipComponent,
     // ChangePreSaleCommissionComponent,
   ],
   imports: [
