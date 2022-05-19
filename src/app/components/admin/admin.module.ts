@@ -16,6 +16,7 @@ import { TransferOwnershipComponent } from './transfer-ownership/transfer-owners
 import { PausableComponent } from './pausable/pausable.component';
 import { BurnComponent } from './burn/burn.component';
 import { MintComponent } from './mint/mint.component';
+import { BalanceOfContractEtherComponent } from './balance-of-contract-ether/balance-of-contract-ether.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MintComponent } from './mint/mint.component';
     PausableComponent,
     BurnComponent,
     MintComponent,
+    BalanceOfContractEtherComponent,
   ],
   imports: [
     CommonModule,

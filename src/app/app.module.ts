@@ -13,7 +13,6 @@ import { HomeComponent } from './components/home/home.component';
 import { PipesModule } from './pipes/pipes.module';
 // import { AllowanceComponent } from './components/admin/allowance/allowance.component';
 // import { ApproveComponent } from './components/admin/approve/approve.component';
-// import { BalanceOfContractEtherComponent } from './components/admin/balance-of-contract-ether/balance-of-contract-ether.component';
 // import { MetamaskComponent } from './components/metamask/metamask.component';
 // import { NavbarComponent } from './components/navbar/navbar.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -40,7 +39,6 @@ const maskConfig: Partial<IConfig> = {
     // MetamaskComponent,
     // AllowanceComponent,
     // ApproveComponent,
-    // BalanceOfContractEtherComponent,
   ],
   imports: [
     BrowserModule,

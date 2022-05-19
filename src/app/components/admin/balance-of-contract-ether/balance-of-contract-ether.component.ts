@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContractService } from 'src/app/services/contract.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-balance-of-contract-ether',
@@ -12,6 +13,7 @@ export class BalanceOfContractEtherComponent implements OnInit {
   submitted = false;
   data: any;
   balanceOfContractEther: any;
+  public nativeToken = environment.chain.nativeCurrency.symbol;
 
   constructor(
     public fb: FormBuilder,

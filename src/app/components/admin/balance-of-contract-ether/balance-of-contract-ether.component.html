@@ -1,12 +1,19 @@
-<label for="basic-url" class="form-label">
-    Retirar matic acumulados en el contrato <br>
-    balance actual en matic {{balanceOfContractEther}}
-    <br>
-</label>
-<form>
-    <div class="d-grid gap-2">
-        <button (click)="submit()" class="btn btn-primary" type="button">
-            {{'retirar' | titlecase}}
-        </button>
+<div class="card mb-4 box-shadow text-center">
+    <div class="card-body">
+        <h3>Contract Balance</h3>
+
+        <label for="basic-url" class="form-label">
+            Retirar matic acumulados en el contrato <br>
+            balance actual en {{nativeToken}} {{balanceOfContractEther}}
+            <br>
+        </label>
+        <form>
+            <div class="d-grid gap-2">
+                <button (click)="submit()" class="btn btn-primary" type="button" disabled>
+                    {{'retirar' | titlecase}}
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
