@@ -121,6 +121,8 @@ export class ContractService {
     this.uToken = new this.web3js.eth.Contract(token_abi, token_address);
     // console.log("uToken", this.uToken.methods)
 
+    this.checkNetwork();
+
     await this.getData()
   }
 
