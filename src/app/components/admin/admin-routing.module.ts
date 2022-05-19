@@ -8,6 +8,10 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
+    path: 'security',
+    loadChildren: () => import('./security/security-routing.module').then(m => m.SecurityRoutingModule)
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: '/admin/dashboard'

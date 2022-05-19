@@ -17,6 +17,7 @@ import { PausableComponent } from './pausable/pausable.component';
 import { BurnComponent } from './burn/burn.component';
 import { MintComponent } from './mint/mint.component';
 import { BalanceOfContractEtherComponent } from './balance-of-contract-ether/balance-of-contract-ether.component';
+import { SecurityModule } from './security/security.module';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { BalanceOfContractEtherComponent } from './balance-of-contract-ether/bal
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
+    SecurityModule,
   ]
 })
 export class AdminModule { }

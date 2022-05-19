@@ -1,0 +1,30 @@
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin']">
+            <i class="bi bi-arrow-left"></i> Dashboard
+          </a></li>
+          <li class="breadcrumb-item active" aria-current="page">Security</li>
+        </ol>
+    </nav>
+    
+    <div class="album py-5 ">
+        <div class="container">
+            <div class="row">
+    
+                <div class="col-12 col-md-6 col-lg-3">
+                    <app-add-user></app-add-user>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <app-add-admin></app-add-admin>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <app-remove-user></app-remove-user>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <app-remove-admin></app-remove-admin>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
