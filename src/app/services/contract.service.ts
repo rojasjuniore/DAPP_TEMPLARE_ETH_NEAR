@@ -96,6 +96,8 @@ export class ContractService {
     this.web3js = new Web3(this.provider); // create web3 instance
     this.accounts = await this.web3js.eth.getAccounts();
 
+    this.checkNetwork();
+
     this.eventsAll()
 
     this.reInitializating()
@@ -127,7 +129,7 @@ export class ContractService {
       // console.log("id", id)
       // console.log("environment.chain.chainId", environment.chain.chainId)
       if (id != environment.chain.chainId) {
-        alert('Please switch to the Polygon network');
+        alert(`Please switch to the ${environment.chain.chainName}`);
         this.metamaskService.addEthereumChain()
       }
     })
@@ -141,26 +143,27 @@ export class ContractService {
       myEther = 0,
       myContractEther,
       balanceOfContract = 0,
-      balanceOf = 0,
-      getPreSaleCommission,
-      getOwner,
-      tokenPerEth,
-      allowance,
-      pause,
-      maticUsd = 0,
-      proxyDataFeeds,
+      // balanceOf = 0,
+      // getPreSaleCommission,
+      // getOwner,
+      // tokenPerEth,
+      // allowance,
+      // pause,
+      // maticUsd = 0,
+      // proxyDataFeeds,
     ] = await Promise.all([
       this.getBalanceEth(accounts),
       this.getBalanceEth(contractAddress),
-      this._method("balanceOf", 'methods', contractAddress),
-      this._method("balanceOf", 'methods', accounts),
-      this._method("getPreSaleCommission", 'methods'),
-      this._method("getOwner", 'methods'),
-      this._method("getTokenPerEth", 'methods'),
-      this._method("allowance", 'methods', accounts),
-      this._method("allowance", 'methods', accounts),
-      this.getEthUsd(),
-      this._method("proxyDataFeeds", 'methods'),
+      // this.calculateAndCall('balanceOf')
+      // this._method("balanceOf", 'methods', contractAddress),
+      // this._method("balanceOf", 'methods', accounts),
+      // this._method("getPreSaleCommission", 'methods'),
+      // this._method("getOwner", 'methods'),
+      // this._method("getTokenPerEth", 'methods'),
+      // this._method("allowance", 'methods', accounts),
+      // this._method("allowance", 'methods', accounts),
+      // this.getEthUsd(),
+      // this._method("proxyDataFeeds", 'methods'),
     ]);
 
     return {
@@ -238,6 +241,7 @@ export class ContractService {
         }
 
 
+        console.log({data});
         this.spinner.hide();
 
         resolve('ok')

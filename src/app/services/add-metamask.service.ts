@@ -48,7 +48,7 @@ export class AddTokenAMetamaskService {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: environment.chain.chainId }],
+        params: [{ chainId: environment.chain.chainIdMetamask }],
       });
     } catch (error: any) {
       console.log("error", error)
@@ -58,7 +58,7 @@ export class AddTokenAMetamaskService {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: environment.chain.chainId,
+                chainId: environment.chain.chainIdMetamask,
                 chainName: environment.chain.chainName,
                 nativeCurrency: environment.chain.nativeCurrency,
                 rpcUrls: [ environment.chain.rpcUrls ],

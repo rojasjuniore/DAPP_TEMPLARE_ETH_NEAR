@@ -14,6 +14,7 @@ export const environment = {
 
     // Testnet
     // chainId: 80001,
+    // chainIdMetamask: "0x13881",
     // chainName: "Polygon Testnet",
     // rpc: "https://polygon-mumbai.infura.io/v3/",
     // rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
@@ -21,6 +22,7 @@ export const environment = {
 
     // Mainnnet 
     chainId: 137,
+    chainIdMetamask: "0X89",
     chainName: "Polygon Mainnet",
     rpc: "https://polygon-mainnet.infura.io/v3/",
     rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
