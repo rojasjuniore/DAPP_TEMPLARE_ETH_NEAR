@@ -60,7 +60,7 @@ export class Sweetalert2Service {
 
   }
 
-  showSuccess(message, type, transactionHash?) {
+  showSuccess(message, type = 0, transactionHash?) {
     try {
       let mess;
 
