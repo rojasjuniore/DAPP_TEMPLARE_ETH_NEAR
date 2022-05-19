@@ -8,6 +8,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { BuyLimitComponent } from './buy-limit/buy-limit.component';
 import { SellLimitComponent } from './sell-limit/sell-limit.component';
 import { SetValueAddressComponent } from './set-value-address/set-value-address.component';
+import { FactorySwapComponent } from './factory-swap/factory-swap.component';
+import { FactorySwapUpdatePairComponent } from './factory-swap-update-pair/factory-swap-update-pair.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { SetValueAddressComponent } from './set-value-address/set-value-address.
     BuyLimitComponent,
     SellLimitComponent,
     SetValueAddressComponent,
+    FactorySwapComponent,
+    FactorySwapUpdatePairComponent,
   ],
   imports: [
     CommonModule,
