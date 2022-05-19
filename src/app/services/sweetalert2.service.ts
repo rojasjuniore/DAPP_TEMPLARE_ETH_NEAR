@@ -72,7 +72,7 @@ export class Sweetalert2Service {
         Swal.fire({
           title: 'Transacción Exitosa.',
           icon: 'success',
-          html: "<a style='color: #e5e61d !important;' href='" + environment.chain.scan + transactionHash + "' target='_blank'>Ver Transacción</a>",
+          html: "<a style='color: #e5e61d !important;' href='" + environment.chain.blockExplorerUrls + transactionHash + "' target='_blank'>Ver Transacción</a>",
           confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK.'
         })
         //  html:  '<a style='color: #e5e61d !important;' href='//sweetalert2.github.io'>Ver Transacción</a> ',
