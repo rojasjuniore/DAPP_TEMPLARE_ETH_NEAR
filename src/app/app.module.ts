@@ -11,21 +11,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PipesModule } from './pipes/pipes.module';
-import { AdminComponent } from './components/admin/admin.component';
-import { AllowanceComponent } from './components/admin/allowance/allowance.component';
-import { ApproveComponent } from './components/admin/approve/approve.component';
-import { BalanceOfContractEtherComponent } from './components/admin/balance-of-contract-ether/balance-of-contract-ether.component';
-import { BurnComponent } from './components/admin/burn/burn.component';
-import { ChangePreSaleCommissionComponent } from './components/admin/change-pre-sale-commission/change-pre-sale-commission.component';
-import { ChangeTokenPerEthComponent } from './components/admin/change-token-per-eth/change-token-per-eth.component';
-import { MintComponent } from './components/admin/mint/mint.component';
-import { OracleComponent } from './components/admin/oracle/oracle.component';
-import { PausableComponent } from './components/admin/pausable/pausable.component';
-import { TransferOwnershipComponent } from './components/admin/transfer-ownership/transfer-ownership.component';
-import { MetamaskComponent } from './components/metamask/metamask.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+// import { AdminComponent } from './components/admin/admin.component';
+// import { AllowanceComponent } from './components/admin/allowance/allowance.component';
+// import { ApproveComponent } from './components/admin/approve/approve.component';
+// import { BalanceOfContractEtherComponent } from './components/admin/balance-of-contract-ether/balance-of-contract-ether.component';
+// import { BurnComponent } from './components/admin/burn/burn.component';
+// import { ChangePreSaleCommissionComponent } from './components/admin/change-pre-sale-commission/change-pre-sale-commission.component';
+// import { ChangeTokenPerEthComponent } from './components/admin/change-token-per-eth/change-token-per-eth.component';
+// import { MintComponent } from './components/admin/mint/mint.component';
+// import { OracleComponent } from './components/admin/oracle/oracle.component';
+// import { PausableComponent } from './components/admin/pausable/pausable.component';
+// import { TransferOwnershipComponent } from './components/admin/transfer-ownership/transfer-ownership.component';
+// import { MetamaskComponent } from './components/metamask/metamask.component';
+// import { NavbarComponent } from './components/navbar/navbar.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AdminModule } from './components/admin/admin.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,21 +37,21 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    HomeComponent,
-    NavbarComponent,
-    MetamaskComponent,
-    AdminComponent,
-    AllowanceComponent,
-    ApproveComponent,
-    BalanceOfContractEtherComponent,
-    BurnComponent,
-    ChangeTokenPerEthComponent,
-    MintComponent,
-    PausableComponent,
-    TransferOwnershipComponent,
-    ChangePreSaleCommissionComponent,
-    OracleComponent
+    HomeComponent, 
+    // HomeComponent,
+    // NavbarComponent,
+    // MetamaskComponent,
+    // AdminComponent,
+    // AllowanceComponent,
+    // ApproveComponent,
+    // BalanceOfContractEtherComponent,
+    // BurnComponent,
+    // ChangeTokenPerEthComponent,
+    // MintComponent,
+    // PausableComponent,
+    // TransferOwnershipComponent,
+    // ChangePreSaleCommissionComponent,
+    // OracleComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     NgxSpinnerModule,
     PipesModule,
+    AdminModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
