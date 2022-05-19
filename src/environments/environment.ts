@@ -10,9 +10,12 @@ export const environment = {
   contractAddress: "####",
   infuraId: "#",
   chain: {
-    chainId: "137",
+    chainId: 137,
+    chainIdTest: 80001,
     chainName: "Polygon Mainnet",
     rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
+    rpcMainnet: "https://polygon-mainnet.infura.io/v3/",
+    rpcTestnet: "https://polygon-mumbai.infura.io/v3/",
     nativeCurrency: {
       name: "Polygon Mainnet",
       symbol: "MATIC",
@@ -20,16 +23,6 @@ export const environment = {
     },
     blockExplorerUrls: ["https://explorer.matic.network/"]
   },
-  payu: {
-    url_payu: "https://checkout.payulatam.com/ppp-web-gateway-payu/",
-    accountId: "#",
-    merchantId: "#",
-    referenceCode: `#${Math.round(Math.random() * 9000000)}`,
-    test: "0",
-    API_KEY: "#",
-    API_LOGIN: "#",
-    KEY_PUBLIC: "#",
-  }
 };
 
 /*
