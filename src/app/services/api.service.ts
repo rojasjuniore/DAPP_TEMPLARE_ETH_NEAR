@@ -15,6 +15,25 @@ export class ApiService {
 
 
   /**
+   * Verifica si un código accesos es válido o no
+   * @param code 
+   * @returns 
+   */
+  async verifyCode(code: string){
+    return new Promise(async (resolve, reject) => {
+
+      const url = `${this.apiURL}core/code/${code}`;
+      console.log('url', url);
+
+      this.http.get(url).subscribe(
+        (res) => { resolve(res); },
+        (err) => { reject(err); }
+      );
+    });
+  }
+
+
+  /**
    * Crea registro de wallets en la whitelist
    * @param params 
    * @returns 
