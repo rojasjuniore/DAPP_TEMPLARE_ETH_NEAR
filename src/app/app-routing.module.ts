@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { CreateWalletComponent } from './components/create-wallet/create-wallet.component';
+import { MainComponent } from './components/main/main.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-  }, 
-  {
-    path: 'admin',
-    loadChildren: () => import('./components/admin/admin-routing.module').then(m => m.AdminRoutingModule),
-  },
+  { path: '', component: MainComponent },
+  { path: 'white-list', component: WhitelistComponent },
+  { path: 'create-wallet', component: CreateWalletComponent },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: ''
   }
 ];
 

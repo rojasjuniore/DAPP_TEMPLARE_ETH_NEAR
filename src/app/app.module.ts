@@ -9,46 +9,35 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { PipesModule } from './pipes/pipes.module';
-// import { MetamaskComponent } from './components/metamask/metamask.component';
-// import { NavbarComponent } from './components/navbar/navbar.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AdminModule } from './components/admin/admin.module';
-import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { MainComponent } from './components/main/main.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
+import { CreateWalletComponent } from './components/create-wallet/create-wallet.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-};
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent, 
-    // HomeComponent,
-    // NavbarComponent,
-    // MetamaskComponent,
+    MainComponent,
+    WhitelistComponent,
+    CreateWalletComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     ClipboardModule,
     AppRoutingModule,
     NgxSpinnerModule,
     PipesModule,
-    AdminModule,
-    NgxMaskModule.forRoot(maskConfig),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

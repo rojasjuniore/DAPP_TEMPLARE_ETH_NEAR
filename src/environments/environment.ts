@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  API_URL: '#',
+  API_URL: 'https://62sijfwdjq.us-east-1.awsapprunner.com/api/v1/',
   urlWeb: '#',
   configUrlAbi: "/assets/abi/DevToken.json",
   contractAddress: "####",
@@ -14,24 +14,25 @@ export const environment = {
   chain: {
 
     // Testnet
-    chainId: 80001,
-    chainIdMetamask: "0x13881",
-    chainName: "Polygon Testnet",
-    rpc: "https://polygon-mumbai.infura.io/v3/",
-    rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+    chainId: 97,
+    chainIdMetamask: "0x61",
+    chainName: "BNB Smart Chain Testnet",
+    rpc: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+    rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
+    blockExplorerUrls: ["https://testnet.bscscan.com/"],
 
     // Mainnnet 
-    // chainId: 137,
-    // chainIdMetamask: "0X89",
-    // chainName: "Polygon Mainnet",
-    // rpc: "https://polygon-mainnet.infura.io/v3/",
-    // rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
-    // blockExplorerUrls: ["https://polygonscan.com/"],
+    // chainId: 56,
+    // chainIdMetamask: "0X38",
+    // chainName: "BNB Smart Chain Mainnet",
+    // rpc: "https://bsc-dataseed1.binance.org/",
+    // rpcUrls: ["https://bsc-dataseed1.binance.org/"],
+    // blockExplorerUrls: ["https://bscscan.com/"],
 
     nativeCurrency: {
-      name: "Polygon",
-      symbol: "MATIC",
+      network: "Binance Smart Chain",
+      name: "BNB",
+      symbol: "BNB",
       decimals: "18",
     },
   },

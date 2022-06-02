@@ -1,0 +1,263 @@
+.container {
+  height: 95vh;
+  padding-left: 129.4px;
+  padding-right: 129.4px;
+  padding-top: 67.4px;
+  overflow: hidden;
+}
+
+.textfield {
+  background-color: #3d3d3d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 40px;
+  width: 250px;
+}
+
+@keyframes rot4 {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(50deg);
+  }
+}
+@keyframes rot3 {
+  0% {
+    transform: rotateZ(150deg);
+  }
+  100% {
+    transform: rotateZ(200deg);
+  }
+}
+@keyframes rot2 {
+  0% {
+    transform: rotateZ(100deg);
+  }
+  100% {
+    transform: rotateZ(150deg);
+  }
+}
+@keyframes rot1 {
+  0% {
+    transform: rotateZ(50deg);
+  }
+  100% {
+    transform: rotateZ(100deg);
+  }
+}
+.animation-cc {
+  animation: 1.5s rot1 linear;
+}
+
+.animation-ccc {
+  animation: 1.5s rot2 linear;
+}
+
+.animation-cccc {
+  animation: 1.5s rot3 linear;
+}
+
+.animate-initial {
+  animation: 1.5s rot4 linear;
+}
+
+.circle-big {
+  position: absolute;
+  border-radius: 50%;
+  width: 650px;
+  height: 650px;
+  z-index: 10;
+  animation-fill-mode: both;
+  right: 28 0px;
+}
+.circle {
+  position: absolute;
+  //   animation: 3s rot linear;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgba(255, 255, 255, 0.4)
+  );
+  color: white;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  backdrop-filter: blur(5px);
+  bottom: 150px;
+  right: 550px;
+  z-index: 150;
+}
+
+.rectangle {
+  background: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4)
+  );
+  color: white;
+  width: 100%;
+  height: 150px;
+  text-align: center;
+  line-height: 150px;
+  backdrop-filter: blur(5px);
+  z-index: 150;
+  border-radius: 20px;
+}
+
+.main {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 90px;
+  grid-template-columns: repeat(1, 1fr);
+  .img-container {
+    grid-column: span 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      position: absolute;
+    }
+    .wallets {
+      position: absolute;
+      z-index: 12;
+      //   border: 2px red solid;
+      width: 542px;
+      height: 502px;
+      top: 200px;
+      border-radius: 20px;
+      background: rgba(14, 14, 14, 0.9);
+      backdrop-filter: blur(10px);
+      form {
+        .one {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+    .metawoman {
+      right: -110px;
+      top: 10px;
+    }
+    .black-sphere {
+      right: -170px;
+      top: -90px;
+      z-index: 150;
+    }
+  }
+}
+
+.button {
+  color: black !important;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 10px 32px;
+  width: 254px;
+}
+
+.button-outlined {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  &:hover {
+    opacity: 0.7;
+  }
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 10px 0px 10px 0px;
+  width: fit-content;
+  padding: 2.5px 12px;
+  cursor: pointer;
+}
+
+.button-outlined-2 {
+  &:hover {
+    opacity: 0.7;
+  }
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 10px 0px 10px 0px;
+  width: fit-content;
+  padding: 10px 32px;
+  cursor: pointer;
+  color: white;
+  width: 264px;
+}
+
+.container-title {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  .title-steps {
+    z-index: 12;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.title {
+  position: absolute;
+  z-index: 12;
+  top: 110px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 71px;
+  .mini-circle {
+    border-radius: 50%;
+    background: #505151;
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    line-height: 10px;
+    z-index: 150;
+  }
+  .active-circle {
+    background-color: white;
+  }
+}
+
+.container-info {
+  padding: 0px 77px;
+  p {
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hidden-info {
+  display: none;
+}

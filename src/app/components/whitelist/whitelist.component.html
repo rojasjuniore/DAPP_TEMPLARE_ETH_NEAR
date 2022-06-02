@@ -1,0 +1,243 @@
+<div class="container">
+  <img
+    src="assets/svg/logo.svg"
+    alt="logo"
+    class="logo"
+    style="cursor: pointer"
+    routerLink="/"
+  />
+  <div class="main">
+    <div class="img-container">
+      <h3 class="title">WHITELIST</h3>
+      <div class="wallets">
+        <button class="button-outlined" (click)="goBack()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.1"
+            height="12"
+            viewBox="0 0 23.1 12"
+          >
+            <g
+              id="Grupo_413"
+              data-name="Grupo 413"
+              transform="translate(-708.9 -327.5)"
+            >
+              <g
+                id="Polígono_2"
+                data-name="Polígono 2"
+                transform="translate(707.969 340) rotate(-90)"
+                fill="none"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M4.778,2.914a2,2,0,0,1,3.444,0l3,5.069A2,2,0,0,1,9.5,11H3.5A2,2,0,0,1,1.783,7.983Z"
+                  stroke="none"
+                />
+                <path
+                  d="M 6.499999523162842 1.93135929107666 C 5.83260440826416 1.93135929107666 5.165209293365479 2.258874893188477 4.778149604797363 2.913905143737793 L 1.783039093017578 7.982544898986816 C 0.9952297210693359 9.315774917602539 1.956299781799316 11.00000476837158 3.504899978637695 10.9999942779541 L 9.495100021362305 10.9999942779541 C 11.04191017150879 11.00071334838867 12.00476932525635 9.315774917602539 11.21695899963379 7.982544898986816 L 8.22184944152832 2.913905143737793 C 7.834789752960205 2.258874893188477 7.167394638061523 1.93135929107666 6.499999523162842 1.93135929107666 M 6.499999523162842 0.9313545227050781 C 7.571929454803467 0.9313545227050781 8.537459373474121 1.482315063476562 9.082778930664062 2.405174255371094 L 12.07788944244385 7.473814487457275 C 12.63281917572021 8.412954330444336 12.64133930206299 9.539304733276367 12.10065937042236 10.4868049621582 C 11.55997943878174 11.4343147277832 10.58593940734863 11.9999942779541 9.495109558105469 11.9999942779541 L 3.504899978637695 11.9999942779541 C 2.414019584655762 12.00000476837158 1.439949989318848 11.43434429168701 0.8992795944213867 10.48686504364014 C 0.3586091995239258 9.539374351501465 0.3671398162841797 8.413004875183105 0.9221096038818359 7.473814487457275 L 3.917219161987305 2.405174255371094 C 4.462539672851562 1.482315063476562 5.428069591522217 0.9313545227050781 6.499999523162842 0.9313545227050781 Z"
+                  stroke="none"
+                  fill="#fff"
+                />
+              </g>
+              <path
+                id="Trazado_224"
+                data-name="Trazado 224"
+                d="M10632.373,11470.5h11.531"
+                transform="translate(-9912.404 -11137)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-width="1"
+              />
+            </g>
+          </svg>
+        </button>
+        <form>
+          <div class="one">
+            <p>Wallet BSC</p>
+            <div class="container-textfields">
+              <input
+                #inputWalletBSC
+                type="text"
+                name="wallet-BSC"
+                id="wallet-BSC"
+                readonly
+                [class]="{
+                  textfield: true,
+                  'success-textfield': successWalletBSC
+                }"
+              />
+              <svg
+                [class]="{ 'svg-check': true, 'hidden-svg': !successWalletBSC }"
+                xmlns="http://www.w3.org/2000/svg"
+                width="56"
+                height="56"
+                viewBox="0 0 56 56"
+              >
+                <g
+                  id="Grupo_424"
+                  data-name="Grupo 424"
+                  transform="translate(-1152.969 -404)"
+                >
+                  <circle
+                    id="Elipse_25"
+                    data-name="Elipse 25"
+                    cx="13"
+                    cy="13"
+                    r="13"
+                    transform="translate(1167.969 419)"
+                    fill="#72ffc4"
+                    opacity="0.297"
+                  />
+                  <circle
+                    id="Elipse_24"
+                    data-name="Elipse 24"
+                    cx="13"
+                    cy="13"
+                    r="13"
+                    transform="translate(1167.969 414)"
+                    fill="#72ffc4"
+                  />
+                  <path
+                    id="Trazado_225"
+                    data-name="Trazado 225"
+                    d="M11088.857,13877.89l4.563,4.563,6.824-6.824"
+                    transform="translate(-9913.582 -13452.041)"
+                    fill="none"
+                    stroke="#0f0f0f"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  />
+                </g>
+              </svg>
+            </div>
+            <button
+              [class]="{ button: true, 'hidden-svg': successWalletBSC }"
+              type="button"
+              (click)="connectAccountBSC()"
+            >
+              Registrar Wallet BSC
+            </button>
+          </div>
+          <div class="one">
+            <p>Wallet NEAR</p>
+            <div class="container-textfields">
+              <input
+                #inputWalleNEAR
+                readonly
+                type="text"
+                name="wallet-BSC"
+                id="wallet-BSC"
+                [class]="{
+                  textfield: true,
+                  'success-textfield': successWalletNEAR
+                }"
+              />
+              <svg
+                [class]="{
+                  'svg-check': true,
+                  'hidden-svg': !successWalletNEAR
+                }"
+                xmlns="http://www.w3.org/2000/svg"
+                width="56"
+                height="56"
+                viewBox="0 0 56 56"
+              >
+                <g
+                  id="Grupo_424"
+                  data-name="Grupo 424"
+                  transform="translate(-1152.969 -404)"
+                >
+                  <circle
+                    id="Elipse_25"
+                    data-name="Elipse 25"
+                    cx="13"
+                    cy="13"
+                    r="13"
+                    transform="translate(1167.969 419)"
+                    fill="#72ffc4"
+                    opacity="0.297"
+                  />
+                  <circle
+                    id="Elipse_24"
+                    data-name="Elipse 24"
+                    cx="13"
+                    cy="13"
+                    r="13"
+                    transform="translate(1167.969 414)"
+                    fill="#72ffc4"
+                  />
+                  <path
+                    id="Trazado_225"
+                    data-name="Trazado 225"
+                    d="M11088.857,13877.89l4.563,4.563,6.824-6.824"
+                    transform="translate(-9913.582 -13452.041)"
+                    fill="none"
+                    stroke="#0f0f0f"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  />
+                </g>
+              </svg>
+            </div>
+            <button
+              [class]="{ button: true, 'hidden-svg': successWalletNEAR }"
+              type="button"
+              (click)="connectAccountNear()"
+            >
+              Registrar Wallet NEAR
+            </button>
+
+            <ng-container *ngIf="successWalletNEAR; else helpNEARWallet">
+              <p
+                [class]="{
+                  'info-final': true,
+                  'hidden-svg': !successWalletNEAR
+                }"
+              >
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+                erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+                tation ullamcorper suscipit lobortis nisl ut
+              </p>
+
+              <button class="button-outlined-2" type="button" (click)="registreOnWhitelist()">
+                Registrar
+              </button>
+            </ng-container>
+
+            <ng-template #helpNEARWallet>
+              <button
+                [class]="{
+                  'button-outlined-2': true,
+                  'hidden-svg': successWalletNEAR
+                }"
+                routerLink="/create-wallet"
+              >
+                Como crear wallet NEAR
+              </button>
+            </ng-template>
+
+            
+          </div>
+        </form>
+      </div>
+      <img
+        src="assets/images/circle-black.png"
+        width="650"
+        alt="circle-black"
+      />
+      <div class="circle-big">
+        <img
+          src="assets/images/black-sphere.png"
+          width="350"
+          alt="black-sphere"
+          class="black-sphere"
+        />
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,222 @@
+<div class="container">
+  <img
+    src="assets/svg/logo.svg"
+    alt="logo"
+    style="cursor: pointer"
+    routerLink="/"
+    class="logo"
+  />
+  <div class="main">
+    <div class="img-container">
+      <h3 class="title">CREAR WALLET</h3>
+
+      <div class="wallets">
+        <button class="button-outlined" (click)="goBack()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.1"
+            height="12"
+            viewBox="0 0 23.1 12"
+          >
+            <g
+              id="Grupo_413"
+              data-name="Grupo 413"
+              transform="translate(-708.9 -327.5)"
+            >
+              <g
+                id="Polígono_2"
+                data-name="Polígono 2"
+                transform="translate(707.969 340) rotate(-90)"
+                fill="none"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M4.778,2.914a2,2,0,0,1,3.444,0l3,5.069A2,2,0,0,1,9.5,11H3.5A2,2,0,0,1,1.783,7.983Z"
+                  stroke="none"
+                />
+                <path
+                  d="M 6.499999523162842 1.93135929107666 C 5.83260440826416 1.93135929107666 5.165209293365479 2.258874893188477 4.778149604797363 2.913905143737793 L 1.783039093017578 7.982544898986816 C 0.9952297210693359 9.315774917602539 1.956299781799316 11.00000476837158 3.504899978637695 10.9999942779541 L 9.495100021362305 10.9999942779541 C 11.04191017150879 11.00071334838867 12.00476932525635 9.315774917602539 11.21695899963379 7.982544898986816 L 8.22184944152832 2.913905143737793 C 7.834789752960205 2.258874893188477 7.167394638061523 1.93135929107666 6.499999523162842 1.93135929107666 M 6.499999523162842 0.9313545227050781 C 7.571929454803467 0.9313545227050781 8.537459373474121 1.482315063476562 9.082778930664062 2.405174255371094 L 12.07788944244385 7.473814487457275 C 12.63281917572021 8.412954330444336 12.64133930206299 9.539304733276367 12.10065937042236 10.4868049621582 C 11.55997943878174 11.4343147277832 10.58593940734863 11.9999942779541 9.495109558105469 11.9999942779541 L 3.504899978637695 11.9999942779541 C 2.414019584655762 12.00000476837158 1.439949989318848 11.43434429168701 0.8992795944213867 10.48686504364014 C 0.3586091995239258 9.539374351501465 0.3671398162841797 8.413004875183105 0.9221096038818359 7.473814487457275 L 3.917219161987305 2.405174255371094 C 4.462539672851562 1.482315063476562 5.428069591522217 0.9313545227050781 6.499999523162842 0.9313545227050781 Z"
+                  stroke="none"
+                  fill="#fff"
+                />
+              </g>
+              <path
+                id="Trazado_224"
+                data-name="Trazado 224"
+                d="M10632.373,11470.5h11.531"
+                transform="translate(-9912.404 -11137)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-width="1"
+              />
+            </g>
+          </svg>
+        </button>
+        <div class="container-steps">
+          <div
+            [class]="{ 'mini-circle': true, 'active-circle': count === 1 }"
+          ></div>
+          <div
+            [class]="{ 'mini-circle': true, 'active-circle': count === 2 }"
+          ></div>
+          <div
+            [class]="{ 'mini-circle': true, 'active-circle': count === 3 }"
+          ></div>
+          <div
+            [class]="{ 'mini-circle': true, 'active-circle': count === 4 }"
+          ></div>
+        </div>
+        <div class="container-title">
+          <svg
+            (click)="last()"
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.1"
+            height="12"
+            viewBox="0 0 23.1 12"
+          >
+            <g
+              id="Grupo_413"
+              data-name="Grupo 413"
+              transform="translate(-708.9 -327.5)"
+            >
+              <g
+                id="Polígono_2"
+                data-name="Polígono 2"
+                transform="translate(707.969 340) rotate(-90)"
+                fill="none"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M4.778,2.914a2,2,0,0,1,3.444,0l3,5.069A2,2,0,0,1,9.5,11H3.5A2,2,0,0,1,1.783,7.983Z"
+                  stroke="none"
+                />
+                <path
+                  d="M 6.499999523162842 1.93135929107666 C 5.83260440826416 1.93135929107666 5.165209293365479 2.258874893188477 4.778149604797363 2.913905143737793 L 1.783039093017578 7.982544898986816 C 0.9952297210693359 9.315774917602539 1.956299781799316 11.00000476837158 3.504899978637695 10.9999942779541 L 9.495100021362305 10.9999942779541 C 11.04191017150879 11.00071334838867 12.00476932525635 9.315774917602539 11.21695899963379 7.982544898986816 L 8.22184944152832 2.913905143737793 C 7.834789752960205 2.258874893188477 7.167394638061523 1.93135929107666 6.499999523162842 1.93135929107666 M 6.499999523162842 0.9313545227050781 C 7.571929454803467 0.9313545227050781 8.537459373474121 1.482315063476562 9.082778930664062 2.405174255371094 L 12.07788944244385 7.473814487457275 C 12.63281917572021 8.412954330444336 12.64133930206299 9.539304733276367 12.10065937042236 10.4868049621582 C 11.55997943878174 11.4343147277832 10.58593940734863 11.9999942779541 9.495109558105469 11.9999942779541 L 3.504899978637695 11.9999942779541 C 2.414019584655762 12.00000476837158 1.439949989318848 11.43434429168701 0.8992795944213867 10.48686504364014 C 0.3586091995239258 9.539374351501465 0.3671398162841797 8.413004875183105 0.9221096038818359 7.473814487457275 L 3.917219161987305 2.405174255371094 C 4.462539672851562 1.482315063476562 5.428069591522217 0.9313545227050781 6.499999523162842 0.9313545227050781 Z"
+                  stroke="none"
+                  fill="#fff"
+                />
+              </g>
+              <path
+                id="Trazado_224"
+                data-name="Trazado 224"
+                d="M10632.373,11470.5h11.531"
+                transform="translate(-9912.404 -11137)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-width="1"
+              />
+            </g>
+          </svg>
+          <h3 class="title-steps">Paso {{ count }}</h3>
+          <svg
+            (click)="next()"
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.1"
+            height="12"
+            viewBox="0 0 23.1 12"
+          >
+            <g
+              id="Grupo_420"
+              data-name="Grupo 420"
+              transform="translate(0.5 -0.5)"
+            >
+              <g
+                id="Polígono_2"
+                data-name="Polígono 2"
+                transform="translate(23.531) rotate(90)"
+                fill="none"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M4.778,2.914a2,2,0,0,1,3.444,0l3,5.069A2,2,0,0,1,9.5,11H3.5A2,2,0,0,1,1.783,7.983Z"
+                  stroke="none"
+                />
+                <path
+                  d="M 6.499999523162842 1.93135929107666 C 5.83260440826416 1.93135929107666 5.165209293365479 2.258874893188477 4.778149604797363 2.913905143737793 L 1.783039093017578 7.982544898986816 C 0.9952297210693359 9.315774917602539 1.956299781799316 11.00000476837158 3.504899978637695 10.9999942779541 L 9.495100021362305 10.9999942779541 C 11.04191017150879 11.00071334838867 12.00476932525635 9.315774917602539 11.21695899963379 7.982544898986816 L 8.22184944152832 2.913905143737793 C 7.834789752960205 2.258874893188477 7.167394638061523 1.93135929107666 6.499999523162842 1.93135929107666 M 6.499999523162842 0.9313545227050781 C 7.571929454803467 0.9313545227050781 8.537459373474121 1.482315063476562 9.082778930664062 2.405174255371094 L 12.07788944244385 7.473814487457275 C 12.63281917572021 8.412954330444336 12.64133930206299 9.539304733276367 12.10065937042236 10.4868049621582 C 11.55997943878174 11.4343147277832 10.58593940734863 11.9999942779541 9.495109558105469 11.9999942779541 L 3.504899978637695 11.9999942779541 C 2.414019584655762 12.00000476837158 1.439949989318848 11.43434429168701 0.8992795944213867 10.48686504364014 C 0.3586091995239258 9.539374351501465 0.3671398162841797 8.413004875183105 0.9221096038818359 7.473814487457275 L 3.917219161987305 2.405174255371094 C 4.462539672851562 1.482315063476562 5.428069591522217 0.9313545227050781 6.499999523162842 0.9313545227050781 Z"
+                  stroke="none"
+                  fill="#fff"
+                />
+              </g>
+              <path
+                id="Trazado_224"
+                data-name="Trazado 224"
+                d="M10643.9,11470.5h-11.531"
+                transform="translate(-10632.373 -11464)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-width="1"
+              />
+            </g>
+          </svg>
+        </div>
+        <div class="container-info">
+          <div [class]="{ 'center-flex': true, 'hidden-info': count !== 1 }">
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+              tation ullamcorper suscipit lobortis nisl ut
+            </p>
+            <a class="button">URL DE NEAR</a>
+            <div class="rectangle"></div>
+          </div>
+          <div [class]="{ 'center-flex': true, 'hidden-info': count !== 2 }">
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+              tation ullamcorper suscipit lobortis nisl ut
+            </p>
+            <div class="rectangle"></div>
+          </div>
+          <div [class]="{ 'center-flex': true, 'hidden-info': count !== 3 }">
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+              tation ullamcorper suscipit lobortis nisl ut
+            </p>
+            <div class="rectangle"></div>
+          </div>
+          <div [class]="{ 'center-flex': true, 'hidden-info': count !== 4 }">
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+              tation ullamcorper suscipit lobortis nisl ut
+            </p>
+            <div class="rectangle"></div>
+            <button class="button" routerLink="/white-list">
+              Registrar wallet
+            </button>
+          </div>
+        </div>
+      </div>
+      <img
+        src="assets/images/circle-black.png"
+        width="650"
+        alt="circle-black"
+      />
+      <div
+        [class]="{
+          'circle-big': true,
+          'animation-cc': count === 2,
+          'animation-ccc': count === 3,
+          'animation-cccc': count === 4,
+          'animate-initial': count === 1
+        }"
+      >
+        <img
+          src="assets/images/black-sphere.png"
+          width="350"
+          alt="black-sphere"
+          class="black-sphere"
+        />
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
