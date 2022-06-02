@@ -3,11 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateWalletComponent } from './components/create-wallet/create-wallet.component';
 import { MainComponent } from './components/main/main.component';
 import { WhitelistComponent } from './components/whitelist/whitelist.component';
+import { CheckCodeGuard } from './guards/check-code.guard';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
-  { path: 'white-list', component: WhitelistComponent },
-  { path: 'create-wallet', component: CreateWalletComponent },
+  { 
+    path: '',
+    component: MainComponent
+  },
+  { 
+    path: 'white-list',
+    canActivate: [CheckCodeGuard],
+    component: WhitelistComponent
+  },
+  { 
+    path: 'create-wallet',
+    canActivate: [CheckCodeGuard],
+    component: CreateWalletComponent
+  },
   {
     path: '**',
     pathMatch: 'full',
