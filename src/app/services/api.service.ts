@@ -7,7 +7,11 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
+  /** Direccion de la API */
   public apiURL = environment.API_URL;
+
+  /** Código del usuario para la whitelist */
+  public userCode: any;
 
   constructor(
     private http: HttpClient,
