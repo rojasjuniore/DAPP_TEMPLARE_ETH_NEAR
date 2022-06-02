@@ -1,16 +1,18 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import Web3 from 'web3';
-import * as WalletConnectProvider from '@walletconnect/web3-provider'
-import * as Web3Modal from "web3modal"
 import { AbiService } from './abi.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AddTokenAMetamaskService } from './add-metamask.service';
 import { HttpClient } from '@angular/common/http';
-import { fromWei, toWei } from '../helpers/utils';
-import { approve as APPROVE } from '../helpers/abi';
+import { toWei } from '../helpers/utils';
 import { Sweetalert2Service } from './sweetalert2.service';
+
+import Web3 from 'web3';
+import * as WalletConnectProvider from '@walletconnect/web3-provider'
+import * as Web3Modal from "web3modal"
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -48,6 +50,7 @@ export class ContractService {
     public metamaskService: AddTokenAMetamaskService,
     public abiService: AbiService,
     public sweetalert2Srv: Sweetalert2Service,
+    private router: Router,
   ) {
 
     const providerOptions = {
@@ -138,13 +141,40 @@ export class ContractService {
   /**
    * Validar estado de la red
    */
-  checkNetwork() {
-    this.web3js.eth.net.getId().then(id => {
-      if (id != environment.chain.chainId) {
-        alert(`Please switch to the ${environment.chain.chainName}`);
-        this.metamaskService.addEthereumChain()
-      }
-    })
+  async checkNetwork() {
+    const chainId = await this.web3js.eth.net.getId();
+
+    if (chainId != environment.chain.chainId){
+      const { value: change } = await Swal.fire({
+        title: 'LANDIAN',
+        text: `Please switch to the ${environment.chain.chainName}`,
+        icon: 'warning',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showCancelButton: false,
+        showConfirmButton: true,
+        // preConfirm: async(result) => {
+        didOpen: async() => {
+          Swal.showLoading();
+          const chainChanged = await this.metamaskService.addEthereumChain();
+
+          if(!chainChanged){
+            this.router.navigate([`/`]);
+            return Swal.clickCancel();
+          }
+          // return chainChanged;
+          return Swal.clickConfirm();
+        } 
+      });
+    }
+
+    return;
+    // this.web3js.eth.net.getId().then(id => {
+    //   if (id != environment.chain.chainId) {
+    //     alert(`Please switch to the ${environment.chain.chainName}`);
+    //     this.metamaskService.addEthereumChain()
+    //   }
+    // })
   }
 
 
@@ -247,18 +277,6 @@ export class ContractService {
 
 
   /**
-   * @name getDataContract
-   * @returns 
-   */
-  getDataContract() {
-    let data: any = localStorage.getItem('_data_contract');
-    if (data == "") { return "" }
-    return JSON.parse(data);
-  }
-
-
-
-  /**
    * @name getBalanceEth
    * @notice              verify that the address is valid
    * @param account       Dirección de wallet
@@ -302,71 +320,6 @@ export class ContractService {
         resolve(false)
       }
     })
-  }
-
-
-  /**
-   * @name getApproveTokenAddress
-   * @param addresstoken 
-   * @param amount 
-   * @param decimals 
-   * @param contractAddress 
-   * @returns 
-   */
-  getApproveTokenAddress(addresstoken: string, amount: string, decimals, contractAddress) {
-    return new Promise(async (resolve, reject) => {
-      try {
-
-        // cargamos la abi de contracto secundarios con el metodo approve
-        let utoken = this.getAbiContract(APPROVE, addresstoken)
-
-        let account = this.accounts[0]
-        let tokenTotal = toWei(amount, decimals)
-        console.warn("tokenTotal", tokenTotal)
-
-        // hacemmos la consulta
-        let _gas = await utoken
-          .methods
-          .approve(contractAddress, tokenTotal)
-          .estimateGas({ from: account })
-
-        console.log("_gas", _gas)
-        // We now have the gas amount, we can now send the transaction
-        utoken
-          .methods
-          .approve(contractAddress, tokenTotal)
-          .send({
-            from: account,
-            gas: _gas
-          })
-          .on('transactionHash', (hash) => {
-            console.log("hash", hash)
-            setTimeout(() => {
-              resolve(true)
-            }, this.waitForTransactions)
-          })
-
-          .on('receipt', (receipt) => {
-            console.log("receipt", receipt)
-          })
-          .on('confirmation', (confirmationNumber, receipt) => {
-            console.log("confirmationNumber", confirmationNumber)
-            console.log("receipt", receipt)
-          })
-          .on('error', (err) => {
-            console.log("error", err.message)
-            this.sweetalert2Srv.showError(err.message, 2)
-            this.spinnerConecction.next(false)
-          })
-
-
-      } catch (err) {
-        console.log("error", err)
-        this.sweetalert2Srv.showError("Error", 2)
-        resolve(false)
-      }
-
-    });
   }
 
 

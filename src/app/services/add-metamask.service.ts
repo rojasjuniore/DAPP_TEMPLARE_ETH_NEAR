@@ -50,8 +50,10 @@ export class AddTokenAMetamaskService {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: environment.chain.chainIdMetamask }],
       });
+      return true;
     } catch (error: any) {
-      console.log("error", error)
+      // console.log("error", error)
+
       if (error.code === 4902) {
         try {
           const wasAdded = await window.ethereum.request({
@@ -68,17 +70,23 @@ export class AddTokenAMetamaskService {
           });
 
           if (wasAdded) {
-            console.log('Thanks!');
-            alert('Thanks!');
+            // console.log('Thanks!');
+            // alert('Thanks!');
+            return true;
           } else {
-            console.log('Your loss!');
-            alert('Your loss!');
+            // console.log('Your loss!');
+            // alert('Your loss!');
+            return false;
           }
         } catch (error: any) {
+
           console.log("error", error)
-          alert(JSON.stringify(error));
+          // alert(JSON.stringify(error));
+          return false;
         }
       }
+
+      return false;
     }
   }
 }
