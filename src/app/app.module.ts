@@ -34,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     HttpClientModule,
     CommonModule,
+    FormsModule,
     ClipboardModule,
     AppRoutingModule,
     NgxSpinnerModule,

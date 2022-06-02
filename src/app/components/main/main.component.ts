@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-main',
@@ -7,11 +8,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  constructor(private router: Router) {}
+
+  public code!: string;
+
+  constructor(
+    private router: Router,
+    private apiSrv: ApiService
+  ) {}
 
   ngOnInit(): void {}
 
-  setCode(): void {
-    this.router.navigate(['/white-list']);
+
+  /**
+   * Enviar formulario del código
+   * TODO: Realizar validación y captura de errores
+   */
+  async setCode(): Promise<void> {
+    try {
+      await this.apiSrv.verifyCode(this.code);
+      this.router.navigate(['/white-list']);
+    } catch (err) {
+      console.log('Error on MainComponent@setCode', err);
+    }
   }
 }
