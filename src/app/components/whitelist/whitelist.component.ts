@@ -37,7 +37,6 @@ export class WhitelistComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log('code', this.code);
     this.sub1$ = this.contractSrv.accountStatus$.subscribe(res => {
       if(res){ this.setSuccessWalletBSC(res.accountId); }
       
