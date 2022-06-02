@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class MainComponent implements OnInit {
 
-  public code!: string;
+  public code: string = 'ABCD123';
 
   constructor(
     private router: Router,
@@ -25,8 +25,9 @@ export class MainComponent implements OnInit {
    */
   async setCode(): Promise<void> {
     try {
-      await this.apiSrv.verifyCode(this.code);
-      this.router.navigate(['/white-list']);
+      // await this.apiSrv.verifyCode(this.code);
+      this.apiSrv.userCode = this.code;
+      this.router.navigate([`/white-list`]);
     } catch (err) {
       console.log('Error on MainComponent@setCode', err);
     }

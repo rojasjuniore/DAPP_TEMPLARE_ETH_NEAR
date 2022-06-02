@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { ContractService } from 'src/app/services/contract.service';
 import { ContractNearService } from 'src/app/services/contract-near.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-whitelist',
   templateUrl: './whitelist.component.html',
@@ -15,8 +17,10 @@ export class WhitelistComponent implements OnInit, OnDestroy {
 
   public successWalletBSC = false;
   public successWalletNEAR = false;
-  public accountEth: any;
-  public accountNear: any;
+  public accountBSC: any;
+  public accountNEAR: any;
+
+  private code: any;
 
   private sub1$!: Subscription;
   private sub2$!: Subscription;
@@ -24,17 +28,22 @@ export class WhitelistComponent implements OnInit, OnDestroy {
   constructor(
     private _location: Location,
     private contractSrv: ContractService,
-    private contractNearSrv: ContractNearService
-  ) { }
+    private contractNearSrv: ContractNearService,
+    private route: ActivatedRoute,
+    private apiSrv: ApiService,
+  ) {
+    this.code = this.apiSrv.userCode;
+  }
 
 
   ngOnInit(): void {
-    this.contractSrv.accountStatus$.subscribe(res => {
+    console.log('code', this.code);
+    this.sub1$ = this.contractSrv.accountStatus$.subscribe(res => {
       if(res){ this.setSuccessWalletBSC(res.accountId); }
       
     })
 
-    this.contractNearSrv.dataStatusNear$.subscribe(res => {
+    this.sub2$ = this.contractNearSrv.dataStatusNear$.subscribe(res => {
       if(res){ this.setSuccessWalletNEAR(res.accountId); }
     })
   }
@@ -45,8 +54,8 @@ export class WhitelistComponent implements OnInit, OnDestroy {
    * @param account 
    */
   setSuccessWalletBSC(account: string) {
-    console.log('bsc', account);
-    this.accountEth = account;
+    // console.log('bsc', account);
+    this.accountBSC = account;
     this.inputWalletBSC.nativeElement.value = account;
     this.successWalletBSC = true;
   }
@@ -57,8 +66,8 @@ export class WhitelistComponent implements OnInit, OnDestroy {
    * @param account 
    */
   setSuccessWalletNEAR(account: string) {
-    console.log('near', account);
-    this.accountNear = account;
+    // console.log('near', account);
+    this.accountNEAR = account;
     this.inputWalleNEAR.nativeElement.value = account;
     this.successWalletNEAR = true;
   }
@@ -68,7 +77,7 @@ export class WhitelistComponent implements OnInit, OnDestroy {
    * Conectar wallet BSC
    */
   async connectAccountBSC() {
-    console.log("connectAccount BSC")
+    // console.log("connectAccount BSC");
     this.contractSrv.connectAccount();
   }
 
@@ -77,12 +86,25 @@ export class WhitelistComponent implements OnInit, OnDestroy {
    * Conectar wallet NEAR
    */
   async connectAccountNear() {
-    console.log("connectAccount NEAR")
+    // console.log("connectAccount NEAR");
     await this.contractNearSrv.initContract();
   }
 
+
+  /**
+   * Registrar usuario en la whitelist
+   * TODO: Realizar validación y captura de errores
+   */
   async registreOnWhitelist(){
-    console.log('try to submit');
+    try {
+      await this.apiSrv.registreOnWhitelist({
+        code: this.code,
+        walletbsc: this.accountBSC,
+        walletnear: this.accountNEAR
+      });
+    } catch (err) {
+      console.log('Error on WhitelistComponent@registreOnWhitelist', err);
+    }
   }
 
 
@@ -91,7 +113,7 @@ export class WhitelistComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.sub1$){ this.sub1$.unsubscribe(); }
-    if(this.sub2$){ this.sub2$.unsubscribe(); }
+    this.sub1$.unsubscribe();
+    this.sub2$.unsubscribe();
   }
 }
